@@ -1,4 +1,4 @@
-Technical Specifications for Database Team Project
+Technical Specifications
 
 Requirements:
 
