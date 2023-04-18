@@ -35,30 +35,26 @@ So that I become more informed of fighters and broaden my knowledge of the UFC s
 
 Endpoints:
 Your initial version of your application should have at least 5 endpoints, and at least one endpoint must be adding/updating data.
-1. add_data,
-This endpoint takes an fighter datatype and adds new data into the database.
+1. **add_data**,
+This endpoint takes an fighter datatype and adds new data into the database. The fighter datatype is given in the following format:
+```json
+{
+  "name": "string",
+  "nick": "string",
+  "height": 0,
+  "weight": 0,
+  "reach": 0,
+  "stance": "string",
+  "wins": 0,
+  "losses": 0,
+  "draws": 0,
+  "active": true,
+  "recent_fights": []
+}
+```
 
-2. update_data
-This endpoint takes an fighter ID and updates the existing data of that fighter in the database.
-
-3. prediction,
-This endpoint provide UFC community members a chance to make their own predictions, and the predictions will be added to the database.
-
-4. get_fighter_by_name,
-This endpoint returns a fighter by their name. For each fighter it returns:
-* `fighter_id`: The internal id of the fighter.
-* `name`: The name of the fighter, in the format of [First Name, Last Name].
-* `nick`: The nickname of the fighter (if it exists).
-* `height`: The height of the fighter in inches.
-* `weight`: The weight of the fighter in pounds.
-* `reach`: The reach of the fighter given in inches.
-* `stance`: The stance of the fighter.
-* `wins`: The amount of wins the fighter has.
-* `losses`: The amount of losses the fighter has.
-* `draws`: The amount of draws the fighter has.
-* `active`: A boolean indicating whether or not the fighter still fights in the UFC.
-* `recent_fights`: A list of the 5 most recent fights the fighter participated in. The list is descending ordered based on recency.
-
+2. **update_data**,
+This endpoint takes a fight and updates the existing data of the fighters associated with the fight in the database.
 Each fight is represented by a dictionary with the following keys:
 * `fight_id`: The internal id of the fight.
 * `event`: The name of the event the fight took place at.
@@ -78,13 +74,55 @@ Each fight is represented by a dictionary with the following keys:
 * `round`: The round the win happened.
 * `time`: The time during the round when the win happened.
 
-5. get_fighters,
+3. **prediction**,
+This endpoint provide UFC community members a chance to make their own predictions, and the predictions will be added to the database.  
+Each prediction is given in the following format:
+```json
+{
+  "prediction_id": 0,
+  "choices": 
+    {
+      "option_1": "string",
+      "option_2": "string",
+      "option_3": null,
+      "option_4": null,
+      "option_5": null,
+      "option_6": null
+    },
+  "agree_count": 0,
+  "disagree_count": 0,
+  "user_responses": [
+    {
+      "user_id": 0,
+      "choice": 1,
+    }, 
+  ]
+}
+```
+4. **get_fighter_by_name**,
+This endpoint returns a fighter by their name. For each fighter it returns:
+* `fighter_id`: The internal id of the fighter.
+* `name`: The name of the fighter, in the format of [First Name, Last Name].
+* `nick`: The nickname of the fighter (if it exists).
+* `height`: The height of the fighter in inches.
+* `weight`: The weight of the fighter in pounds.
+* `reach`: The reach of the fighter given in inches.
+* `stance`: The stance of the fighter.
+* `wins`: The amount of wins the fighter has.
+* `losses`: The amount of losses the fighter has.
+* `draws`: The amount of draws the fighter has.
+* `active`: A boolean indicating whether or not the fighter still fights in the UFC.
+* `recent_fights`: A list of the 5 most recent fights the fighter participated in. The list is descending ordered based on recency.
+
+   Each fight is represented the same way as seen in endpoint `update_data`.
+
+5. **get_fighters**,
 This endpoint takes a few filter options and returns the information and statistics about all the filtered fighters.
 
-6. compare_fighters,
+6. **compare_fighters**,
 This endpoint takes two fighter names and compare the statistics between them
 
-7. login,
+7. **login**,
 This endpoint takes an UserId and a Password and jump to different URLs for different type of users
 
 Transaction Flows:
