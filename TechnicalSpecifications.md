@@ -117,7 +117,35 @@ This endpoint returns a fighter by their name. For each fighter it returns:
    Each fight is represented the same way as seen in endpoint `update_data`.
 
 5. **get_fighters**,
-This endpoint takes a few filter options and returns the information and statistics about all the filtered fighters.
+This endpoint takes a few filter options and returns a list of fighters matching the criteria.  
+   Available filters are:  
+* `stance`: The stance of the fighter.
+* `name`: Inclusive search on the name string.
+* `height_min`: Minimum height in inches (inclusive). Defaults to minimum height in database.
+* `height_max`: Maximum height in inches (inclusive). Defaults to maximum height in database.
+* `weight_min`: Minimum weight in pounds (inclusive). Defaults to minimum weight in database.
+* `weight_max`: Maximum weight in pounds (inclusive). Defaults to maximum weight in database.
+* `reach_min`: Minimum reach in inches (inclusive). Defaults to minimum reach in database.
+* `reach_max`: Maximum reach in inches (inclusive). Defaults to maximum reach in database.
+* `win_rate_min`: A number between 0-1.00 (inclusive). Defaults to 0.
+* `win_rate_max`: A number between 0-1.00 (inclusive). Defaults to 1.00.
+* `wins_min`: Minimum number of wins, defaults to 0.
+* `wins_max`: Maximum number of wins, defaults to maximum wins in database.
+* `loses_min`: Minimum number of loses, defaults to 0.
+* `loses_max`: Maximum number of loses, defaults to maximum loses in database.
+* `draws_min`: Minimium number of draws defaults to 0.
+* `draws_max`: Maximum number of draws, defaults to maximum draws in database.
+* `event`: Takes the name of an event and will return the fighters who participated in it.
+* `active`: A boolean indicating whether the fighter is still active.  
+   Additionally, this endpoint takes a `sort` query parameter:
+* `name`: Sorts alphabetically.
+* `height`: Sorts by height.
+* `weight`: Sorts by weight.
+* `reach`: Sorts by reach.
+* `win_rate`: Sorts by win rate.
+* `order`: Either `"ascending"` or `"descending"`.  
+   The `limit` and `offset` query parameters are used for pagination. `limit` will limit the amount of results to return and `offset` species the number of results to skip before returning the result.
+
 
 6. **compare_fighters**,
 This endpoint takes two fighter names and compare the statistics between them
@@ -126,6 +154,7 @@ This endpoint takes two fighter names and compare the statistics between them
 This endpoint takes an UserId and a Password and jump to different URLs for different type of users
 
 Transaction Flows:
+* Any request made by a user that involves writing will have to go through integrity and consistency checks. Should they fail at any point then their query shall be voided and any changes made to the database reversed.
 
 Edgecases:
 * some of these I believe should go under certain endpoints.
