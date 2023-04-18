@@ -56,6 +56,8 @@ This endpoint takes two fighter names and compare the statistics between them
 7. login,
 This endpoint takes an UserId and a Password and jump to different URLs for different type of users
 
+Transaction Flows:
+
 Edgecases:
 * some of these I believe should go under certain endpoints.
 
