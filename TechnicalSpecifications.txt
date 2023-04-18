@@ -35,8 +35,26 @@ So that I become more informed of fighters and broaden my knowledge of the UFC s
 
 Endpoints:
 Your initial version of your application should have at least 5 endpoints, and at least one endpoint must be adding/updating data.
+1. add_data,
+This endpoint takes an fighter datatype and adds new data into the database.
 
-Transaction Flows:
+2. update_data
+This endpoint takes an fighter ID and updates the existing data of that fighter in the database.
+
+3. prediction,
+This endpoint provide UFC community members a chance to make their own predictions, and the predictions will be added to the database.
+
+4. get_fighter_by_name,
+This endpoint takes the name of a fighter returns the information and statistics about the fighter.
+
+5. get_fighters,
+This endpoint takes a few filter options and returns the information and statistics about all the filtered fighters.
+
+6. compare_fighters,
+This endpoint takes two fighter names and compare the statistics between them
+
+7. login,
+This endpoint takes an UserId and a Password and jump to different URLs for different type of users
 
 Edgecases:
 * some of these I believe should go under certain endpoints.
@@ -45,7 +63,7 @@ Edgecases:
 to the database will either need to predict a winner for each respective fight for an event or on the backend we will make sure that any empty prediction for
 a fight is a valid input and we will not update prediction entries relevant to that entry.
 
-- Incomplete statistics on a fighters/event: any entry returned from a endpoint that returns Nan or null values must be detected and reflected on the front end
+- Incomplete statistics on a fighters/event: any entry returned from a endpoint that returns None or null values must be detected and reflected on the front end
 of the web page informing the user that the data they attempt to search for may be incomplete for some results.
 
 - Empty queries: Any empty queries for endpoints that require a specific name/names to gather results will alert user that their request is incomplete, 
