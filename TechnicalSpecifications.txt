@@ -1,10 +1,55 @@
-Technical Specifications
+Technical Specifications for UFC database
+CSC 365
 
-Requirements:
+User Stories/User Requirements (min 6):
 
-User stories/User requirements. Describe the flows that users will go through and how they will interact with the application.
-Documentation on what endpoints you will create. This should be at the same level of detail as what I provided in Assignment 1.
-Detailed descriptions of edge cases and transaction flows. For example, if the app has a credit card checkout, describe what happens 
-if the credit card transaction fails, what happens if the user tries to cancel mid-way through, etc.
+1. As a casual sports bettor / member of the UFC community,
+I want to be query for a certain fight or UFC event(which consists of multiple fights) and be able to view who people think will win.
+So that I can get an insight of who the UFC community believes will win upcoming fights and stay engaged with other UFC community members.
 
+2. As a casual sports bettor / member of the UFC community,
+I want to be able to be add my personal input/ reasoning on who is most likely to win a UFC match to inform other members of
+the UFC community, adding my predictions to the database.
+So that I can give others insight on who will win and actively engage with the rest of the UFC community.
+
+3. As a casual bettor,
+I want to be able to query a match up between two upcoming fighters and then be able to display relevant stats such as
+average fight time, recent fight results, any relevant injuries.
+
+4. As a journalist,
+I want to be able to easily look up fighters and their statistics
+So that I can create relevant and up to date inforgraphics.
+
+5. As a casual bettor,
+I want to be able to gain expert insight from the application on who is most likely to win, with the api explaining why given
+relevant statistics, such as fight history, recent injuries, and age.
+So that I can make a more informed decision on who is going to win a fight.
+
+6. As a moderator,
+I want to be able to write to the UFC event data and player outcomes
+So that the information on the website remains up to date and gives the most time to users to predict winners of fights.
+
+7. As a casual fan of the UFC,
+I want to be able to quickly search for a fighter amongst the database to see fighting stats of players.
+So that I become more informed of fighters and broaden my knowledge of the UFC sport.
+
+Endpoints:
 Your initial version of your application should have at least 5 endpoints, and at least one endpoint must be adding/updating data.
+
+Transaction Flows:
+
+Edgecases:
+* some of these I believe should go under certain endpoints.
+
+- Incomplete prediction of fights for an event: UFC main cards consist of usually 5-6 fights, users who want to upload their predictions
+to the database will either need to predict a winner for each respective fight for an event or on the backend we will make sure that any empty prediction for
+a fight is a valid input and we will not update prediction entries relevant to that entry.
+
+- Incomplete statistics on a fighters/event: any entry returned from a endpoint that returns Nan or null values must be detected and reflected on the front end
+of the web page informing the user that the data they attempt to search for may be incomplete for some results.
+
+- Empty queries: Any empty queries for endpoints that require a specific name/names to gather results will alert user that their request is incomplete, 
+prompting them to fill out the respective information that is missing.
+
+- Empty return results: Provide a formal message with the given query (for them to see if their is a mistake in what they were searching for) stating that there were no
+search results found.
