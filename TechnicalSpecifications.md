@@ -45,7 +45,38 @@ This endpoint takes an fighter ID and updates the existing data of that fighter 
 This endpoint provide UFC community members a chance to make their own predictions, and the predictions will be added to the database.
 
 4. get_fighter_by_name,
-This endpoint takes the name of a fighter returns the information and statistics about the fighter.
+This endpoint returns a fighter by their name. For each fighter it returns:
+* `fighter_id`: The internal id of the fighter.
+* `name`: The name of the fighter, in the format of [First Name, Last Name].
+* `nick`: The nickname of the fighter (if it exists).
+* `height`: The height of the fighter in inches.
+* `weight`: The weight of the fighter in pounds.
+* `reach`: The reach of the fighter given in inches.
+* `stance`: The stance of the fighter.
+* `wins`: The amount of wins the fighter has.
+* `losses`: The amount of losses the fighter has.
+* `draws`: The amount of draws the fighter has.
+* `active`: A boolean indicating whether or not the fighter still fights in the UFC.
+* `recent_fights`: A list of the 5 most recent fights the fighter participated in. The list is descending ordered based on recency.
+
+Each fight is represented by a dictionary with the following keys:
+* `fight_id`: The internal id of the fight.
+* `event`: The name of the event the fight took place at.
+* `result`: The result of the fight, given as the name of the fighter or "Draw".
+* `fighter1`: The name of the first fighter.
+* `fighter2`: The name of the second fighter.
+* `kd_1`: The number of knockdowns fighter 1 got.
+* `strikes_1`: The number of strikes given fighter 1 did.
+* `td_1`: The number of takedowns fighter 1 did.
+* `sub_1`: The number of submission attempts fighter 1 did.
+* `kd_2`: The number of knockdowns fighter 2 got.
+* `strikes_2`: The number of strikes given fighter 2 did.
+* `td_2`: The number of takedowns fighter 2 did.
+* `sub_2`: The number of submission attempts fighter 2 did.
+* `weight`: The weight division of the fight.
+* `method`: The method of win.
+* `round`: The round the win happened.
+* `time`: The time during the round when the win happened.
 
 5. get_fighters,
 This endpoint takes a few filter options and returns the information and statistics about all the filtered fighters.
