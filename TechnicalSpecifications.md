@@ -80,14 +80,25 @@ Each prediction is given in the following format:
 ```json
 {
   "prediction_id": 0,
-  "prediction": "string",
-  "user_id": 0,
-  "user_answer": true,
-  "agree": 0,
-  "disagree": 0
+  "choices": 
+    {
+      "option_1": "string",
+      "option_2": "string",
+      "option_3": null,
+      "option_4": null,
+      "option_5": null,
+      "option_6": null
+    },
+  "agree_count": 0,
+  "disagree_count": 0,
+  "user_responses": [
+    {
+      "user_id": 0,
+      "choice": 1,
+    }, 
+  ]
 }
 ```
-
 4. **get_fighter_by_name**,
 This endpoint returns a fighter by their name. For each fighter it returns:
 * `fighter_id`: The internal id of the fighter.
