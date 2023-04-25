@@ -35,27 +35,32 @@ So that I become more informed of fighters and broaden my knowledge of the UFC s
 
 Endpoints:
 Your initial version of your application should have at least 5 endpoints, and at least one endpoint must be adding/updating data.
-1. **add_data**,
-This endpoint takes an fighter datatype and adds new data into the database. The fighter datatype is given in the following format:
-```json
-{
-  "name": "string",
-  "nick": "string",
-  "height": 0,
-  "weight": 0,
-  "reach": 0,
-  "stance": "string",
-  "wins": 0,
-  "losses": 0,
-  "draws": 0,
-  "active": true,
-  "recent_fights": []
-}
-```
+1. **POST /fighters/**  
+This endpoint takes an fighter datatype and adds new data into the database.  
+   
+   The fighter datatype is given in the following format:
+   ```json
+   {
+     "name": "string",
+     "nick": "string",
+     "height": 0,
+     "weight": 0,
+     "reach": 0,
+     "stance": "string",
+     "wins": 0,
+     "losses": 0,
+     "draws": 0,
+     "active": true,
+     "recent_fights": []
+   }
+   ```
 
-2. **update_data**,
-This endpoint takes a fight and updates the existing data of the fighters associated with the fight in the database.
-Each fight is represented by a dictionary with the following keys:
+2. **POST /fights/**  
+This endpoint adds a new fight and updates the existing data of the fighters associated with the fight in the database.  
+
+   The endpoint returns the fight_id of the new fight.
+
+   Each fight is represented by a dictionary with the following keys:
 * `fight_id`: The internal id of the fight.
 * `event`: The name of the event the fight took place at.
 * `result`: The result of the fight, given as the name of the fighter or "Draw".
@@ -74,33 +79,38 @@ Each fight is represented by a dictionary with the following keys:
 * `round`: The round the win happened.
 * `time`: The time during the round when the win happened.
 
-3. **prediction**,
-This endpoint provide UFC community members a chance to make their own predictions, and the predictions will be added to the database.  
-Each prediction is given in the following format:
-```json
-{
-  "prediction_id": 0,
-  "choices": 
-    {
-      "option_1": "string",
-      "option_2": "string",
-      "option_3": null,
-      "option_4": null,
-      "option_5": null,
-      "option_6": null
-    },
-  "agree_count": 0,
-  "disagree_count": 0,
-  "user_responses": [
-    {
-      "user_id": 0,
-      "choice": 1,
-    }, 
-  ]
-}
-```
-4. **get_fighter_by_name**,
-This endpoint returns a fighter by their name. For each fighter it returns:
+3. **GET /fights/{fight_id}/predictions**  
+This endpoint returns the results of a prediction. A prediction can be done on any fight and records the number of votes voted on each fighter.
+
+   The author of the prediction has their internal id stored in the `user_id` key.
+
+   The keys `fighter1_count` and `fighter2_count` correspond to the `fighter1` and `fighter2` keys from the fight the `fight_id` is from. The values of `fighter1_count` and `fighter2_count` represent how many people have predicted on which fighter to win.
+
+   Each prediction is given in the following format:
+   ```json
+   {
+     "prediction_id": 0,
+     "fight_id": 0,
+     "fighter1_count": 0,
+     "fighter2_count": 0,
+     "user_id": 0,
+   }
+   ```
+4. **POST /fights/{fight_id}/predictions**
+This endpoint provides functionality for a user to create their own prediction.  
+
+   The prediction is generated based on the given `fight_id` in the request.
+
+   Below is a sample request body.
+   ```json
+   {
+     "fight_id": 0
+   }
+   ```
+5. **GET fighters/{fighter_id}**  
+This endpoint returns a fighter by their internal id.  
+   
+   For each fighter it returns:
 * `fighter_id`: The internal id of the fighter.
 * `name`: The name of the fighter, in the format of [First Name, Last Name].
 * `nick`: The nickname of the fighter (if it exists).
@@ -116,7 +126,7 @@ This endpoint returns a fighter by their name. For each fighter it returns:
 
    Each fight is represented the same way as seen in endpoint `update_data`.
 
-5. **get_fighters**,
+6. **GET fighters/**  
 This endpoint takes a few filter options and returns a list of fighters matching the criteria.  
    Available filters are:  
 * `stance`: The stance of the fighter.
@@ -136,25 +146,22 @@ This endpoint takes a few filter options and returns a list of fighters matching
 * `draws_min`: Minimium number of draws defaults to 0.
 * `draws_max`: Maximum number of draws, defaults to maximum draws in database.
 * `event`: Takes the name of an event and will return the fighters who participated in it.
-* `active`: A boolean indicating whether the fighter is still active.  
+* `active`: A boolean indicating whether the fighter is still active.
+
    Additionally, this endpoint takes a `sort` query parameter:
 * `name`: Sorts alphabetically.
 * `height`: Sorts by height.
 * `weight`: Sorts by weight.
 * `reach`: Sorts by reach.
 * `win_rate`: Sorts by win rate.
-* `order`: Either `"ascending"` or `"descending"`.  
+* `order`: Either `"ascending"` or `"descending"`.
+
    The `limit` and `offset` query parameters are used for pagination. `limit` will limit the amount of results to return and `offset` species the number of results to skip before returning the result.
-
-
-6. **compare_fighters**,
-This endpoint takes two fighter names and compare the statistics between them
-
-7. **login**,
-This endpoint takes an UserId and a Password and jump to different URLs for different type of users
 
 Transaction Flows:
 * Any request made by a user that involves writing will have to go through integrity and consistency checks. Should they fail at any point then their query shall be voided and any changes made to the database reversed.
+
+* ***(WIP)*** A user creates a prediction on the website by creating a POST request on the a fight of their choice. Their prediction is signed with their user id. They can share their prediction around with other users where they can collect data to see who the community (or at least the people they reached) believes will win the fight. Each prediction is unique based on the combination of its `fight_id` and `user_id`, that is, a user can only create one prediction per fight.
 
 Edgecases:
 * some of these I believe should go under certain endpoints.
