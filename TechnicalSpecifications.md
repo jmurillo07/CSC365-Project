@@ -103,7 +103,7 @@ This endpoint provides functionality for a user to create their own prediction.
      "fight_id": 0
    }
    ```
-5. **GET fighters/{fighter_id}**  
+5. **GET /fighters/{fighter_id}**  
 This endpoint returns a fighter by their internal id.  
    
    For each fighter it returns:
@@ -124,7 +124,7 @@ This endpoint returns a fighter by their internal id.
 * `opponent_name`: The name of the opponent.
 * `result`: The internal id of the victor or none if a draw.
 
-6. **GET fighters/**  
+6. **GET /fighters/**  
 This endpoint takes a few filter options and returns a list of fighters matching the criteria.  
    Available filters are:  
 * `stance`: The stance of the fighter.

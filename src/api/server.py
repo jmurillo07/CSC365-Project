@@ -37,7 +37,7 @@ tags_metadata = [
     },
     {
         "name": "events",
-        "description": "Access infromation on events.",
+        "description": "Access information on events.",
     },
 ]
 
