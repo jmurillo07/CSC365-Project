@@ -1,0 +1,19 @@
+{
+  "fighter_id": 3,
+  "name": "Test Bunny",
+  "height": 100,
+  "weight": 7414,
+  "reach": 48.9,
+  "stance": "Switch",
+  "wins": 1,
+  "losses": 0,
+  "draws": 0,
+  "recent_fights": [
+    {
+      "fight_id": 20,
+      "opponent_id": 1,
+      "opponent_name": "Test Dummy",
+      "result": 3
+    }
+  ]
+}
