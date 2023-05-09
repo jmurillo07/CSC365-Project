@@ -50,7 +50,6 @@ def post_fight(fighter1_id: int,
                stats1_id: int,
                stats2_id: int,
                method_of_vic: int):
-    
     """
     The endpoint returns the fight_id of the new fight.
     Each fight is by the following fields:
@@ -66,6 +65,15 @@ def post_fight(fighter1_id: int,
     * `stats2_id`: the id of the stats table assosciated with fighter 2's performance
     * `method_of_vic`: The type of victory (ex. TKO, Decision)
     """
+    # Ensure the identity key is after the max id
+    with db.engine.connect() as conn:
+        result = conn.execute(
+            sqlalchemy.text(
+                """
+                SELECT setval(pg_get_serial_sequence('fights', 'fight_id'), max(fight_id))
+                FROM fights"""
+            )
+        )
 
     var_dic = {
         "fighter1_id": fighter1_id,
