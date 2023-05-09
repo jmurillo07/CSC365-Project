@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+from src.api import fights
 
 description = """
 UFC API returns fighter and fight statistics from numbered events.
@@ -47,6 +48,7 @@ app = FastAPI(
     openapi_tags=tags_metadata,
 )
 
+app.include_router(fights.router)
 
 @app.get("/")
 async def root():
