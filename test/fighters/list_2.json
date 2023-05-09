@@ -1,0 +1,20 @@
+[
+    {
+      "fighter_id": 3,
+      "name": "Test Bunny",
+      "height": 100,
+      "weight": 7414,
+      "reach": 48.9,
+      "stance": "Switch",
+      "W/D/L": "1/0/0"
+    },
+    {
+      "fighter_id": 2,
+      "name": "Test Robot",
+      "height": 70,
+      "weight": 160,
+      "reach": 70,
+      "stance": "Southpaw",
+      "W/D/L": "1/2/1"
+    }
+  ]
