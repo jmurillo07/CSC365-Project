@@ -20,4 +20,7 @@ metadata_obj = sqlalchemy.MetaData()
 fighters = sqlalchemy.Table("fighters", metadata_obj, autoload_with=engine)
 fights = sqlalchemy.Table("fights", metadata_obj, autoload_with=engine)
 events = sqlalchemy.Table("events", metadata_obj, autoload_with=engine)
-
+fighter_stats = sqlalchemy.Table("fighter_stats", metadata_obj, autoload_with=engine)
+events = sqlalchemy.Table("events", metadata_obj, autoload_with=engine)
+stances = sqlalchemy.Table("stances", metadata_obj, autoload_with=engine)
+victory_methods = sqlalchemy.Table("victory_methods", metadata_obj, autoload_with=engine)
