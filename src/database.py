@@ -1,6 +1,4 @@
-import csv
 import os
-import io
 import sqlalchemy
 from sqlalchemy import create_engine
 import dotenv
@@ -19,7 +17,7 @@ def database_connection_url():
 engine = create_engine(database_connection_url())
 
 metadata_obj = sqlalchemy.MetaData()
-movies = sqlalchemy.Table("movies", metadata_obj, autoload_with=engine)
-characters = sqlalchemy.Table("characters", metadata_obj, autoload_with=engine)
-conversations = sqlalchemy.Table("conversations", metadata_obj, autoload_with=engine)
-lines = sqlalchemy.Table("lines", metadata_obj, autoload_with=engine)
+fighters = sqlalchemy.Table("fighters", metadata_obj, autoload_with=engine)
+fights = sqlalchemy.Table("fights", metadata_obj, autoload_with=engine)
+events = sqlalchemy.Table("events", metadata_obj, autoload_with=engine)
+
