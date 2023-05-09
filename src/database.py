@@ -1,6 +1,4 @@
-import csv
 import os
-import io
 import sqlalchemy
 from sqlalchemy import create_engine
 import dotenv
