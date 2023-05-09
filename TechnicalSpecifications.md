@@ -41,19 +41,15 @@ This endpoint takes an fighter datatype and adds new data into the database.
    The fighter datatype is given in the following format:
    ```json
    {
-     "name": "string",
-     "nick": "string",
+     "first_name": "string",
+     "last_name": "string",
      "height": 0,
-     "weight": 0,
      "reach": 0,
-     "stance": "string",
-     "wins": 0,
-     "losses": 0,
-     "draws": 0,
-     "active": true,
+     "stance": null,
      "recent_fights": []
    }
    ```
+   Where stance is either empty or an enumeration between 1-3, representing "Orthodox", "Southpaw", and "Switch" respectively.
 
 2. **POST /fights/**  
 This endpoint adds a new fight and updates the existing data of the fighters associated with the fight in the database.  
@@ -113,7 +109,6 @@ This endpoint returns a fighter by their internal id.
    For each fighter it returns:
 * `fighter_id`: The internal id of the fighter.
 * `name`: The name of the fighter, in the format of [First Name, Last Name].
-* `nick`: The nickname of the fighter (if it exists).
 * `height`: The height of the fighter in inches.
 * `weight`: The weight of the fighter in pounds.
 * `reach`: The reach of the fighter given in inches.
@@ -121,32 +116,32 @@ This endpoint returns a fighter by their internal id.
 * `wins`: The amount of wins the fighter has.
 * `losses`: The amount of losses the fighter has.
 * `draws`: The amount of draws the fighter has.
-* `active`: A boolean indicating whether or not the fighter still fights in the UFC.
 * `recent_fights`: A list of the 5 most recent fights the fighter participated in. The list is descending ordered based on recency.
 
-   Each fight is represented the same way as seen in endpoint `update_data`.
+   Each fight is represented by a dictionary with the following keys:
+* `fight_id`: The internal id of the fight.
+* `opponent_id`: The internal id of the opponent.
+* `opponent_name`: The name of the opponent.
+* `result`: The internal id of the victor or none if a draw.
 
 6. **GET fighters/**  
 This endpoint takes a few filter options and returns a list of fighters matching the criteria.  
    Available filters are:  
 * `stance`: The stance of the fighter.
 * `name`: Inclusive search on the name string.
-* `height_min`: Minimum height in inches (inclusive). Defaults to minimum height in database.
-* `height_max`: Maximum height in inches (inclusive). Defaults to maximum height in database.
-* `weight_min`: Minimum weight in pounds (inclusive). Defaults to minimum weight in database.
-* `weight_max`: Maximum weight in pounds (inclusive). Defaults to maximum weight in database.
-* `reach_min`: Minimum reach in inches (inclusive). Defaults to minimum reach in database.
-* `reach_max`: Maximum reach in inches (inclusive). Defaults to maximum reach in database.
-* `win_rate_min`: A number between 0-1.00 (inclusive). Defaults to 0.
-* `win_rate_max`: A number between 0-1.00 (inclusive). Defaults to 1.00.
+* `height_min`: Minimum height in inches (inclusive). Defaults to 0.
+* `height_max`: Maximum height in inches (inclusive). Defaults to 999.
+* `weight_min`: Minimum weight in pounds (inclusive). Defaults to 0.
+* `weight_max`: Maximum weight in pounds (inclusive). Defaults to 9999.
+* `reach_min`: Minimum reach in inches (inclusive). Defaults to 0.
+* `reach_max`: Maximum reach in inches (inclusive). Defaults to 9999.
 * `wins_min`: Minimum number of wins, defaults to 0.
-* `wins_max`: Maximum number of wins, defaults to maximum wins in database.
+* `wins_max`: Maximum number of wins, defaults to 9999.
 * `loses_min`: Minimum number of loses, defaults to 0.
-* `loses_max`: Maximum number of loses, defaults to maximum loses in database.
+* `loses_max`: Maximum number of loses, defaults to 9999.
 * `draws_min`: Minimium number of draws defaults to 0.
-* `draws_max`: Maximum number of draws, defaults to maximum draws in database.
+* `draws_max`: Maximum number of draws, defaults to 9999.
 * `event`: Takes the name of an event and will return the fighters who participated in it.
-* `active`: A boolean indicating whether the fighter is still active.
 
    Additionally, this endpoint takes a `sort` query parameter:
 * `name`: Sorts alphabetically.
