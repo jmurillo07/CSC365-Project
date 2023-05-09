@@ -107,7 +107,7 @@ This endpoint provides functionality for a user to create their own prediction.
      "fight_id": 0
    }
    ```
-5. **GET fighters/{fighter_id}**  
+5. **GET /fighters/{fighter_id}**  
 This endpoint returns a fighter by their internal id.  
    
    For each fighter it returns:
@@ -124,9 +124,9 @@ This endpoint returns a fighter by their internal id.
 * `active`: A boolean indicating whether or not the fighter still fights in the UFC.
 * `recent_fights`: A list of the 5 most recent fights the fighter participated in. The list is descending ordered based on recency.
 
-   Each fight is represented the same way as seen in endpoint `update_data`.
+   Each fight is represented the same way as seen in endpoint `POST fights/`.
 
-6. **GET fighters/**  
+6. **GET /fighters/**  
 This endpoint takes a few filter options and returns a list of fighters matching the criteria.  
    Available filters are:  
 * `stance`: The stance of the fighter.
