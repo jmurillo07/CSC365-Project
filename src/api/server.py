@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 
 from src.api import fights
+from src.api import events
 from src.api import fighters
 
 description = """
@@ -50,6 +51,7 @@ app = FastAPI(
     openapi_tags=tags_metadata,
 )
 app.include_router(fights.router)
+app.include_router(events.router)
 app.include_router(fighters.router)
 
 @app.get("/")

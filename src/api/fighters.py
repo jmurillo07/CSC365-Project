@@ -249,15 +249,15 @@ def list_fighters(
             db.fighters.c.reach,
             db.stances.c.stance,
         )
-        .join(db.stances, db.fighters.c.stance == db.stances.c.id)
+        .join(db.stances, db.fighters.c.stance == db.stances.c.id, isouter=True)
         .join(db.fights, db.fighters.c.fighter_id == db.fights.c.fighter1_id
-                         or db.fighters.c.fighter_id == db.fights.c.fighter2_id)
+                         or db.fighters.c.fighter_id == db.fights.c.fighter2_id, isouter=True)
         .join(db.fighter_stats,
               (db.fighter_stats.c.stats_id == db.fights.c.stats_1 and
                db.fighters.c.fighter_id == db.fights.c.fighter1_id)
                or (db.fighter_stats.c.stats_id == db.fights.c.stats_2 and
-                   db.fighters.c.fighter_id == db.fights.c.fighter2_id))
-        .join(db.events, db.fights.c.event_id == db.events.c.event_id)
+                   db.fighters.c.fighter_id == db.fights.c.fighter2_id), isouter=True)
+        .join(db.events, db.fights.c.event_id == db.events.c.event_id, isouter=True)
         .group_by(db.fighters.c.fighter_id, db.fighter_stats.c.weight, db.stances.c.stance)
         .order_by(order_by, db.fighters.c.fighter_id)
         .limit(limit)
@@ -307,16 +307,23 @@ def list_fighters(
                 ),[{"id": row.fighter_id}]
             )
             results = results.first()
-            losses = results.relational_fight_total - results.wins - results.draws
-            if ((wins_min != 0 and results.wins < wins_min)
+            if results == None:
+                wins = 0
+                losses = 0
+                draws = 0
+            else:
+                wins = results.wins
+                losses = results.relational_fight_total - results.wins - results.draws
+                draws = results.draws
+            if ((wins_min != 0 and wins < wins_min)
                 or (losses_min != 0 and losses < losses_min)
-                or (draws_min != 0 and results.draws < draws_min)):
+                or (draws_min != 0 and draws < draws_min)):
                 continue
-            if ((wins_max != 9999 and results.wins > wins_max)
+            if ((wins_max != 9999 and wins > wins_max)
                 or (losses_min != 9999 and losses > losses_max)
-                or (draws_min != 9999 and results.draws > draws_max)):
+                or (draws_min != 9999 and draws > draws_max)):
                 continue
-            wdl = str(results.wins) + "/" + str(results.draws) + "/" + str(losses)
+            wdl = str(wins) + "/" + str(draws) + "/" + str(losses)
             json.append(
                 {
                     "fighter_id": row.fighter_id,
