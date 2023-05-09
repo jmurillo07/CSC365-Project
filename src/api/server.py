@@ -20,7 +20,7 @@ You can:
 * **add a community prediction to a fight**
 * **retrieve a specific prediction by fight id**
 
-## events
+## Events
 
 You can:
 * **retrieve a specific event by id**
