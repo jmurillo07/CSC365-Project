@@ -17,16 +17,6 @@ depends_on = None
 
 
 def upgrade() -> None:
-    op.create_table(
-        'fighters',
-        sa.Column('fighter_id', sa.Integer, sa.Identity(), primary_key=True, nullable=False),
-        sa.Column('first_name', sa.Text),
-        sa.Column('last_name', sa.Text),
-        sa.Column('height', sa.Integer),
-        sa.Column('reach', sa.Integer),
-        sa.Column('stance_id', sa.Integer, sa.ForeignKey('stances.id')),
-    )
-
     # Enumeration table
     stances_table = op.create_table(
         'stances',
@@ -40,17 +30,6 @@ def upgrade() -> None:
             {'stance': 'Southpaw'},
             {'stance': 'Switch'},
         ],
-    )
-
-    op.create_table(
-        'fighter_stats',
-        sa.Column('stats_id', sa.BigInteger, sa.Identity(), primary_key=True, nullable=False),
-        sa.Column('kd', sa.Integer, server_default='0'),
-        sa.Column('strikes', sa.Integer, server_default='0'),
-        sa.Column('td', sa.Integer, server_default='0'),
-        sa.Column('sub', sa.Integer, server_default='0'),
-        sa.Column('weight', sa.Integer),
-        sa.Column('fighter_id', sa.Integer, sa.ForeignKey('fighters.fighter_id'), nullable=False),
     )
 
     # Enumeration table
@@ -73,6 +52,42 @@ def upgrade() -> None:
     )
 
     op.create_table(
+        'fighters',
+        sa.Column('fighter_id', sa.Integer, sa.Identity(), primary_key=True, nullable=False),
+        sa.Column('first_name', sa.Text),
+        sa.Column('last_name', sa.Text),
+        sa.Column('height', sa.Integer),
+        sa.Column('reach', sa.Integer),
+        sa.Column('stance_id', sa.Integer, sa.ForeignKey('stances.id')),
+    )
+
+    op.create_table(
+        'fighter_stats',
+        sa.Column('stats_id', sa.BigInteger, sa.Identity(), primary_key=True, nullable=False),
+        sa.Column('kd', sa.Integer, server_default='0'),
+        sa.Column('strikes', sa.Integer, server_default='0'),
+        sa.Column('td', sa.Integer, server_default='0'),
+        sa.Column('sub', sa.Integer, server_default='0'),
+        sa.Column('weight', sa.Integer),
+        sa.Column('fighter_id', sa.Integer, sa.ForeignKey('fighters.fighter_id'), nullable=False),
+    )
+
+    op.create_table(
+        'venue',
+        sa.Column('venue_id', sa.Integer, sa.Identity(), primary_key=True, nullable=False),
+        sa.Column('venue_name', sa.Text)
+    )
+
+    op.create_table(
+        'events',
+        sa.Column('event_id', sa.Integer, sa.Identity(), primary_key=True, nullable=False),
+        sa.Column('event_name', sa.Text, server_default=''),
+        sa.Column('event_date', sa.DateTime),
+        sa.Column('venue_id', sa.Integer, sa.ForeignKey('venue.venue_id')),
+        sa.Column('attendance', sa.Integer),
+    )
+
+    op.create_table(
         'fights',
         sa.Column('fight_id', sa.BigInteger, sa.Identity(), primary_key=True, nullable=False),
         sa.Column('event_id', sa.Integer, sa.ForeignKey('events.event_id')),
@@ -87,41 +102,27 @@ def upgrade() -> None:
     )
 
     op.create_table(
-        'events',
-        sa.Column('event_id', sa.Integer, sa.Identity(), primary_key=True, nullable=False),
-        sa.Column('event_name', sa.Text, server_default=''),
-        sa.Column('event_date', sa.DateTime),
-        sa.Column('venue_id', sa.Integer, sa.ForeignKey('venue.venue_id')),
-        sa.Column('attendance', sa.Integer),
-    )
-
-    op.create_table(
-        'venue',
-        sa.Column('venue_id', sa.Integer, sa.Identity(), primary_key=True, nullable=False),
-        sa.Column('venue_name', sa.Text)
-    )
-
-    op.create_table(
-        'predictions',
-        sa.Column('prediction_id', sa.Integer, sa.Identity(), primary_key=True, nullable=False),
-        sa.Column('fighter_id', sa.Integer, sa.ForeignKey('fighters_fighter_id'), nullable=False),
-        sa.Column('user_id', sa.Integer, sa.ForeignKey('users.user_id'), nullable=False),
-    )
-
-    op.create_table(
         'users',
         sa.Column('user_id', sa.Integer, sa.Identity(), primary_key=True, nullable=False),
         sa.Column('username', sa.Text, nullable=False),
     )
 
+    op.create_table(
+        'predictions',
+        sa.Column('prediction_id', sa.Integer, sa.Identity(), primary_key=True, nullable=False),
+        sa.Column('fight_id', sa.BigInteger, sa.ForeignKey('fights.fight_id'), nullable=False),
+        sa.Column('fighter_id', sa.Integer, sa.ForeignKey('fighters.fighter_id'), nullable=False),
+        sa.Column('user_id', sa.Integer, sa.ForeignKey('users.user_id'), nullable=False),
+    )
+
 
 def downgrade() -> None:
-    op.drop_table('fighters')
-    op.drop_table('stances')
-    op.drop_table('fighter_stats')
-    op.drop_table('victory_methods')
+    op.drop_table('predictions')
+    op.drop_table('users')
     op.drop_table('fights')
     op.drop_table('events')
     op.drop_table('venue')
-    op.drop_table('predictions')
-    op.drop_table('users')
+    op.drop_table('fighter_stats')
+    op.drop_table('fighters')
+    op.drop_table('victory_methods')
+    op.drop_table('stances')    
