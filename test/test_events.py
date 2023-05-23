@@ -77,13 +77,6 @@ def test_add_event_01():
         conn.close()
 
 def test_add_event_400():
-    with db.engine.connect() as conn:
-        result = conn.execute(
-            sqlalchemy.select(
-                sqlalchemy.func.max(db.events.c.event_id),
-            )
-        )
-        event_id = result.first().max_1 + 1
 
     response = client.post(
         "/events/",
