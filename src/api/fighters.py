@@ -53,17 +53,13 @@ def get_fighter(id: int):
             db.stances.c.stance,
         )
         .join(db.stances, db.fighters.c.stance == db.stances.c.id, isouter=True)
-        .join(db.fights, db.fighters.c.fighter_id == db.fights.c.fighter1_id
-                         or db.fighters.c.fighter_id == db.fights.c.fighter2_id, isouter=True)
-        .join(db.fighter_stats,
-              (db.fighter_stats.c.stats_id == db.fights.c.stats_1 and
-               db.fighters.c.fighter_id == db.fights.c.fighter1_id)
-               or (db.fighter_stats.c.stats_id == db.fights.c.stats_2 and
-                   db.fighters.c.fighter_id == db.fights.c.fighter2_id), isouter=True)
-        .join(db.events, db.fights.c.event_id == db.events.c.event_id, isouter=True)
+        .join(db.fights, (db.fighters.c.fighter_id == db.fights.c.fighter1_id)
+                         | (db.fighters.c.fighter_id == db.fights.c.fighter2_id), isouter=True)
+        .join(db.fighter_stats, db.fighter_stats.c.fighter_id == db.fighters.c.fighter_id, isouter=True)
         .where(db.fighters.c.fighter_id == id)
-        .group_by(db.fighters.c.fighter_id, db.fighter_stats.c.weight, db.stances.c.stance, db.fights.c.fight_id)
-        .order_by(sqlalchemy.desc(db.fights.c.fight_id))
+        .group_by(db.fighters.c.fighter_id, db.fighter_stats.c.stats_id, db.stances.c.stance, 
+                  db.fights.c.fight_id)
+        .order_by(sqlalchemy.desc(db.fighter_stats.c.stats_id), sqlalchemy.desc(db.fights.c.fight_id))
     )
     stmt2 = sqlalchemy.text(
         """
@@ -90,6 +86,7 @@ def get_fighter(id: int):
     with db.engine.connect() as conn:
         result = conn.execute(stmt)
         fighter_row = result.first()
+        print(fighter_row)
         if fighter_row is None:
             raise HTTPException(status_code=404, detail="fighter not found")
         
@@ -218,6 +215,21 @@ def list_fighters(
     The `limit` and `offset` query parameters are used for pagination. limit will limit the amount
     of results to return and offset species the number of results to skip before returning the result.
     """
+    stmt = sqlalchemy.text(
+        """
+        SELECT fighter_id, weight
+        FROM (
+            SELECT *, ROW_NUMBER() OVER (PARTITION BY fighter_stats.fighter_id ORDER BY fighter_stats.stats_id DESC) AS n
+            FROM fighter_stats
+        ) AS x
+        WHERE n <= 1
+        """
+    )
+    stmt = stmt.columns(
+        sqlalchemy.column('fighter_id'),
+        sqlalchemy.column('weight'),
+    ).subquery("wt")
+
     if sort is fighter_sort_options.name:
         order_by = sqlalchemy.sql.functions.concat(
                 db.fighters.c.first_name + " " + db.fighters.c.last_name
@@ -225,7 +237,7 @@ def list_fighters(
     elif sort is fighter_sort_options.height:
         order_by = db.fighters.c.height
     elif sort is fighter_sort_options.weight:
-        order_by = db.fighter_stats.c.weight
+        order_by = stmt.c.weight
     elif sort is fighter_sort_options.reach:
         order_by = db.fighters.c.reach
     else:
@@ -237,7 +249,7 @@ def list_fighters(
         order_by = sqlalchemy.desc(order_by)
     else:
         assert False
-    
+
     stmt = (
         sqlalchemy.select(
             db.fighters.c.fighter_id,
@@ -245,20 +257,17 @@ def list_fighters(
                 db.fighters.c.first_name + " " + db.fighters.c.last_name
             ).label("name"),
             db.fighters.c.height,
-            db.fighter_stats.c.weight,
+            stmt.c.weight,
             db.fighters.c.reach,
             db.stances.c.stance,
+            db.events.c.event_id
         )
+        .select_from(db.fighters)
+        .join(stmt, db.fighters.c.fighter_id == stmt.c.fighter_id, isouter=True)
         .join(db.stances, db.fighters.c.stance == db.stances.c.id, isouter=True)
-        .join(db.fights, db.fighters.c.fighter_id == db.fights.c.fighter1_id
-                         or db.fighters.c.fighter_id == db.fights.c.fighter2_id, isouter=True)
-        .join(db.fighter_stats,
-              (db.fighter_stats.c.stats_id == db.fights.c.stats_1 and
-               db.fighters.c.fighter_id == db.fights.c.fighter1_id)
-               or (db.fighter_stats.c.stats_id == db.fights.c.stats_2 and
-                   db.fighters.c.fighter_id == db.fights.c.fighter2_id), isouter=True)
+        .join(db.fights, (db.fighters.c.fighter_id == db.fights.c.fighter1_id)
+                         | (db.fighters.c.fighter_id == db.fights.c.fighter2_id), isouter=True)
         .join(db.events, db.fights.c.event_id == db.events.c.event_id, isouter=True)
-        .group_by(db.fighters.c.fighter_id, db.fighter_stats.c.weight, db.stances.c.stance)
         .order_by(order_by, db.fighters.c.fighter_id)
         .limit(limit)
         .offset(offset)
@@ -276,15 +285,17 @@ def list_fighters(
     if height_max != 999:
         stmt = stmt.where(db.fighters.c.height <= height_max)
     if weight_min != 0:
-        stmt = stmt.where(db.fighter_stats.c.weight >= weight_min)
+        stmt = stmt.where(sqlalchemy.column('weight') >= weight_min)
     if weight_max != 9999:
-        stmt = stmt.where(db.fighter_stats.c.weight <= weight_max)
+        stmt = stmt.where(sqlalchemy.column('weight') <= weight_max)
     if reach_min != 0:
         stmt = stmt.where(db.fighters.c.reach >= reach_min)
     if reach_max != 999:
         stmt = stmt.where(db.fighters.c.reach <= reach_max)
     if event != "":
         stmt = stmt.where(db.events.c.event_name.ilike(f"%{event}"))
+
+    print(stmt)
 
     with db.engine.connect() as conn:
         result = conn.execute(stmt)
@@ -333,6 +344,7 @@ def list_fighters(
                     "reach": row.reach,
                     "stance": row.stance,
                     "W/D/L": wdl,
+                    "event_iid": row.event_id,
                 }
             )
 
@@ -344,7 +356,7 @@ def add_fighter(fighter: FighterJson):
     """
     This endpoint takes an fighter datatype and adds new data into the database.
     The fighter is represented by their first and last name, their height in inches,
-    their reach in inches, their stance (if known) as an enumeration between 1-3.
+    their reach in inches, and their stance represented by its stance_id.
 
     This endpoint ensures that the stance is either None or a correct enumeration, that
     the height is within the bounds of 0 to 9999, and that the reach is within the bounds
