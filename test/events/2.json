@@ -1,34 +1,8 @@
 [
   {
-    "fighter1": "Test",
-    "fighter2": "Test",
-    "result": 2,
     "event_name": "test2",
     "event_date": "2023-05-08",
-    "venue": "test2"
-  },
-  {
-    "fighter1": "Test",
-    "fighter2": "Test",
-    "result": 1,
-    "event_name": "test2",
-    "event_date": "2023-05-08",
-    "venue": "test2"
-  },
-  {
-    "fighter1": "Test",
-    "fighter2": "Test",
-    "result": null,
-    "event_name": "test2",
-    "event_date": "2023-05-08",
-    "venue": "test2"
-  },
-  {
-    "fighter1": "Test",
-    "fighter2": "Test",
-    "result": 3,
-    "event_name": "test2",
-    "event_date": "2023-05-08",
-    "venue": "test2"
+    "venue": "test2",
+    "attendance": 100
   }
 ]
