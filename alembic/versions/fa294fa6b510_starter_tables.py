@@ -51,6 +51,32 @@ def upgrade() -> None:
         ],
     )
 
+    # Enumeration table
+    weight_classes_table = op.create_table(
+        'weight_classes',
+        sa.Column('id', sa.Integer, sa.Identity(), primary_key=True, nullable=False),
+        sa.Column('class', sa.Text)
+    )
+    op.bulk_insert(
+        weight_classes_table,
+        [
+            {'class': 'Flyweight'},
+            {'class': 'Bantamweight'},
+            {'class': 'Featherweight'},
+            {'class': 'Lightweight'},
+            {'class': 'Welterweight'},
+            {'class': 'Middleweight'},
+            {'class': 'Light Heavyweight'},
+            {'class': 'Heavyweight'},
+            {'class': 'Women\'s Strawweight'},
+            {'class': 'Women\'s Flyweight'},
+            {'class': 'Women\'s Bantamweight'},
+            {'class': 'Women\'s Featherweight'},
+            {'class': 'Catch Weight'},
+            {'class': 'Open Weight'}
+        ]
+    )
+
     op.create_table(
         'fighters',
         sa.Column('fighter_id', sa.Integer, sa.Identity(), primary_key=True, nullable=False),
@@ -68,7 +94,6 @@ def upgrade() -> None:
         sa.Column('strikes', sa.Integer, server_default='0'),
         sa.Column('td', sa.Integer, server_default='0'),
         sa.Column('sub', sa.Integer, server_default='0'),
-        sa.Column('weight', sa.Integer),
         sa.Column('fighter_id', sa.Integer, sa.ForeignKey('fighters.fighter_id'), nullable=False),
     )
 
@@ -94,6 +119,7 @@ def upgrade() -> None:
         sa.Column('result', sa.Integer),
         sa.Column('fighter1_id', sa.Integer, sa.ForeignKey('fighters.fighter_id'), nullable=False),
         sa.Column('fighter2_id', sa.Integer, sa.ForeignKey('fighters.fighter_id'), nullable=False),
+        sa.Column('weight_class', sa.Integer, sa.ForeignKey('weight_classes.id'), nullable=False),
         sa.Column('method_of_vic', sa.Integer, sa.ForeignKey('victory_methods.id')),
         sa.Column('round_num', sa.Integer, sa.CheckConstraint('round_num>=1 AND round_num<=5'), nullable=False),
         sa.Column('round_time', sa.Text),
@@ -124,5 +150,6 @@ def downgrade() -> None:
     op.drop_table('venue')
     op.drop_table('fighter_stats')
     op.drop_table('fighters')
+    op.drop_table('weight_classes')
     op.drop_table('victory_methods')
     op.drop_table('stances')    

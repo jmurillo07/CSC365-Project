@@ -1,0 +1,42 @@
+{
+  "fighter_id": 3278,
+  "name": "Anderson Silva",
+  "height": 74,
+  "reach": 77,
+  "stance": "Southpaw",
+  "wins": 17,
+  "losses": 7,
+  "draws": 1,
+  "recent_fights": [
+    {
+      "fight_id": 1215,
+      "opponent_id": 1383,
+      "opponent_name": "Uriah Hall",
+      "result": 1383
+    },
+    {
+      "fight_id": 1932,
+      "opponent_id": 523,
+      "opponent_name": "Jared Cannonier",
+      "result": 523
+    },
+    {
+      "fight_id": 2079,
+      "opponent_id": 18,
+      "opponent_name": "Israel Adesanya",
+      "result": 18
+    },
+    {
+      "fight_id": 3002,
+      "opponent_id": 446,
+      "opponent_name": "Derek Brunson",
+      "result": 3278
+    },
+    {
+      "fight_id": 3307,
+      "opponent_id": 687,
+      "opponent_name": "Daniel Cormier",
+      "result": 687
+    }
+  ]
+}

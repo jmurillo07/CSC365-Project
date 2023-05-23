@@ -2,26 +2,32 @@ from fastapi.testclient import TestClient
 
 from src.api.server import app
 from src import database as db
+from .factories import FightersFactory
+from .factories import FighterStatsFactory
 import sqlalchemy
-
 import json
+import pytest
 
 client = TestClient(app)
 
 
+# def test_fighter_factory():
+#     FightersFactory.create()
+
+
 def test_get_fighter_01():
-    response = client.get("/fighters/1")
+    response = client.get("/fighters/3278")
     assert response.status_code == 200
 
-    with open("test/fighters/1.json", encoding="utf-8") as f:
+    with open("test/fighters/3278.json", encoding="utf-8") as f:
         assert response.json() == json.load(f)
 
 
 def test_get_fighter_02():
-    response = client.get("/fighters/3")
+    response = client.get("/fighters/1")
     assert response.status_code == 200
 
-    with open("test/fighters/3.json", encoding="utf-8") as f:
+    with open("test/fighters/1.json", encoding="utf-8") as f:
         assert response.json() == json.load(f)
 
 
