@@ -5,6 +5,19 @@ from sqlalchemy import pool
 
 from alembic import context
 
+import os
+import dotenv
+
+# DO NOT CHANGE THIS TO BE HARDCODED. ONLY PULL FROM ENVIRONMENT VARIABLES.
+def database_connection_url():
+    dotenv.load_dotenv()
+    DB_USER: str = os.environ.get("POSTGRES_USER")
+    DB_PASSWD = os.environ.get("POSTGRES_PASSWORD")
+    DB_SERVER: str = os.environ.get("POSTGRES_SERVER")
+    DB_PORT: str = os.environ.get("POSTGRES_PORT")
+    DB_NAME: str = os.environ.get("POSTGRES_DB")
+    return f"postgresql://{DB_USER}:{DB_PASSWD}@{DB_SERVER}:{DB_PORT}/{DB_NAME}"
+
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
 config = context.config
@@ -37,7 +50,7 @@ def run_migrations_offline() -> None:
     script output.
 
     """
-    url = config.get_main_option("sqlalchemy.url")
+    url = config.set_main_option("sqlalchemy.url", database_connection_url())
     context.configure(
         url=url,
         target_metadata=target_metadata,
@@ -56,17 +69,20 @@ def run_migrations_online() -> None:
     and associate a connection with the context.
 
     """
+    print("ONLINE")
+    config.set_main_option("sqlalchemy.url", database_connection_url())
     connectable = engine_from_config(
         config.get_section(config.config_ini_section, {}),
         prefix="sqlalchemy.",
         poolclass=pool.NullPool,
+        url=database_connection_url(),
     )
 
     with connectable.connect() as connection:
         context.configure(
             connection=connection, target_metadata=target_metadata
         )
-
+        print(connectable.url)
         with context.begin_transaction():
             context.run_migrations()
 
