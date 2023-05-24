@@ -1,9 +1,9 @@
 from fastapi import FastAPI
 
-# from src.api import fights
+from src.api import fights
 from src.api import fighters
-# from src.api import users
-# from src.api import events
+from src.api import users
+from src.api import events
 # from src.api import predictions
 
 
@@ -71,10 +71,10 @@ app = FastAPI(
     version="0.0.2",
     openapi_tags=tags_metadata,
 )
-# app.include_router(fights.router)
-# app.include_router(events.router)
-# app.include_router(fighters.router)
-# app.include_router(users.router)
+app.include_router(fights.router)
+app.include_router(events.router)
+app.include_router(fighters.router)
+app.include_router(users.router)
 # app.include_router(predictions.router)
 
 @app.get("/")

@@ -4,3 +4,8 @@ test
 .ruff_cache
 .vscode
 .git
+.csv
+.png
+supabase
+Werkzeug-1.0.1.dist-info
+werkzeug
