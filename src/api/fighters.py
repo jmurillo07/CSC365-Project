@@ -2,17 +2,17 @@ from fastapi import APIRouter, HTTPException
 from enum import Enum
 from fastapi.params import Query
 from src import database as db
+from typing import Optional
 from pydantic import BaseModel, Field
-from typing import List
 import sqlalchemy
 
 
 class FighterJson(BaseModel):
-    first_name: str | None = Field(default="", alias='first_name')
-    last_name: str | None = Field(default="", alias='last_name')
-    height: int | None = 0
-    reach: int | None = 0
-    stance_id: int | None = Field(default=None, alias='stance_id')
+    first_name: Optional[str] = Field(default="", alias='first_name')
+    last_name: Optional[str] = Field(default="", alias='last_name')
+    height: Optional[int] = 0
+    reach: Optional[int] = 0
+    stance_id: Optional[int] = Field(default=None, alias='stance_id')
 
 
 router = APIRouter()
@@ -100,7 +100,6 @@ def get_fighter(id: int):
         
         recent_matches = []
         for row in rows:
-            print(row)
             if not row.fight_id:
                 # No fights, no point.
                 break
