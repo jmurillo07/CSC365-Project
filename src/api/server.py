@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 
-from src.api import fights, events, fighters, users
+from src.api import fights, events, fighters, users, predictions
 
 description = """
 UFC API returns fighter and fight statistics from numbered events.
@@ -40,6 +40,14 @@ tags_metadata = [
         "name": "events",
         "description": "Access information on events.",
     },
+    {
+        "name": "users",
+        "description": "Access information on users.",
+    },
+    {
+        "name": "predictions",
+        "description": "Access information on predictions.",
+    },
 ]
 
 app = FastAPI(
@@ -52,6 +60,7 @@ app.include_router(fights.router)
 app.include_router(events.router)
 app.include_router(fighters.router)
 app.include_router(users.router)
+app.include_router(predictions.router)
 
 @app.get("/")
 async def root():
