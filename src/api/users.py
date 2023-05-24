@@ -95,7 +95,7 @@ def authenticate_user(user: UserJson):
 
 @router.post("/users/create", tags=["users"])
 def add_user(user: UserJson):
-    """"
+    """
     This endpoint takes in a user datatype and adds it to the database.
     Usernames are assured to be unique by the endpoint, if a username given
     is not unique it will return an error.
@@ -107,7 +107,8 @@ def add_user(user: UserJson):
         INSERT INTO users (username, password) VALUES (
             :username,
             crypt(:password, gen_salt('bf'))
-        );
+        )
+        RETURNING user_id
         """
     )
 
@@ -126,4 +127,4 @@ def add_user(user: UserJson):
         result = conn.execute(encryption, [{'username': user.username, 'password': user.password}])
         conn.commit()
     
-    return {"user_id": result.inserted_primary_key[0]}
+    return {"user_id": result.first()[0]}
