@@ -4,15 +4,9 @@
   "height": null,
   "reach": null,
   "stance": null,
+  "weight": null,
   "wins": 0,
   "losses": 0,
-  "draws": 1,
-  "recent_fights": [
-    {
-      "fight_id": null,
-      "opponent_id": null,
-      "opponent_name": null,
-      "result": null
-    }
-  ]
+  "draws": 0,
+  "recent_fights": []
 }

@@ -4,39 +4,45 @@
   "height": 74,
   "reach": 77,
   "stance": "Southpaw",
+  "weight": "Middleweight",
   "wins": 17,
   "losses": 7,
-  "draws": 1,
+  "draws": 0,
   "recent_fights": [
     {
       "fight_id": 1215,
+      "event": "UFC Fight Night: Hall vs. Silva",
       "opponent_id": 1383,
       "opponent_name": "Uriah Hall",
-      "result": 1383
+      "result": "Loss - (KO/TKO)"
     },
     {
       "fight_id": 1932,
+      "event": "UFC 237: Namajunas vs. Andrade",
       "opponent_id": 523,
       "opponent_name": "Jared Cannonier",
-      "result": 523
+      "result": "Loss - (KO/TKO)"
     },
     {
       "fight_id": 2079,
+      "event": "UFC 234: Adesanya vs. Silva",
       "opponent_id": 18,
       "opponent_name": "Israel Adesanya",
-      "result": 18
+      "result": "Loss - (U-Dec)"
     },
     {
       "fight_id": 3002,
+      "event": "UFC 208: Holm vs. De Randamie",
       "opponent_id": 446,
       "opponent_name": "Derek Brunson",
-      "result": 3278
+      "result": "Win - (U-Dec)"
     },
     {
       "fight_id": 3307,
+      "event": "UFC 200: Tate vs Nunes",
       "opponent_id": 687,
       "opponent_name": "Daniel Cormier",
-      "result": 687
+      "result": "Loss - (U-Dec)"
     }
   ]
 }

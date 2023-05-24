@@ -165,7 +165,7 @@ with open("ufc_event_data.csv", mode="r", encoding="utf-8") as csv_file:
         elif "DQ" in method:
             method = 7
         else:
-            method = None
+            method = None  # Overturned probably
         round = try_parse(int, row['Round'])
         time = try_parse(str, row['Time'])
 

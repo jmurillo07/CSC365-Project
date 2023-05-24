@@ -1,20 +1,402 @@
 [
-    {
-      "fighter_id": 2,
-      "name": "Test Robot",
-      "height": 70,
-      "weight": 160,
-      "reach": 70,
-      "stance": "Southpaw",
-      "W/D/L": "1/2/1"
-    },
-    {
-      "fighter_id": 1,
-      "name": "Test Dummy",
-      "height": 69,
-      "weight": 123,
-      "reach": 69,
-      "stance": "Orthodox",
-      "W/D/L": "1/2/2"
-    }
-  ]
+  {
+    "fighter_id": 1110,
+    "name": "Brianna Fortino",
+    "height": 60,
+    "reach": 62,
+    "stance": "Southpaw",
+    "W/D/L": "1/0/1"
+  },
+  {
+    "fighter_id": 667,
+    "name": "Montserrat Conejo",
+    "height": 60,
+    "reach": 61,
+    "stance": "Southpaw",
+    "W/D/L": "1/0/1"
+  },
+  {
+    "fighter_id": 2195,
+    "name": "Melissa Martinez",
+    "height": 62,
+    "reach": 66,
+    "stance": "Southpaw",
+    "W/D/L": "0/0/1"
+  },
+  {
+    "fighter_id": 1390,
+    "name": "Seo Hee Ham",
+    "height": 62,
+    "reach": 62,
+    "stance": "Southpaw",
+    "W/D/L": "1/0/2"
+  },
+  {
+    "fighter_id": 2577,
+    "name": "Josiane Nunes",
+    "height": 62,
+    "reach": 67,
+    "stance": "Southpaw",
+    "W/D/L": "3/0/0"
+  },
+  {
+    "fighter_id": 2577,
+    "name": "Josiane Nunes",
+    "height": 62,
+    "reach": 67,
+    "stance": "Southpaw",
+    "W/D/L": "3/0/0"
+  },
+  {
+    "fighter_id": 2220,
+    "name": "Miranda Maverick",
+    "height": 63,
+    "reach": 65,
+    "stance": "Southpaw",
+    "W/D/L": "4/0/2"
+  },
+  {
+    "fighter_id": 590,
+    "name": "Alex Chambers",
+    "height": 63,
+    "reach": 63,
+    "stance": "Southpaw",
+    "W/D/L": "1/0/3"
+  },
+  {
+    "fighter_id": 537,
+    "name": "Chris Cariaso",
+    "height": 63,
+    "reach": 64,
+    "stance": "Southpaw",
+    "W/D/L": "7/0/6"
+  },
+  {
+    "fighter_id": 3034,
+    "name": "Juancamilo Ronderos",
+    "height": 63,
+    "reach": 64,
+    "stance": "Southpaw",
+    "W/D/L": "0/0/2"
+  },
+  {
+    "fighter_id": 1138,
+    "name": "Jinh Yu Frey",
+    "height": 63,
+    "reach": 65,
+    "stance": "Southpaw",
+    "W/D/L": "2/0/4"
+  },
+  {
+    "fighter_id": 537,
+    "name": "Chris Cariaso",
+    "height": 63,
+    "reach": 64,
+    "stance": "Southpaw",
+    "W/D/L": "7/0/6"
+  },
+  {
+    "fighter_id": 88,
+    "name": "Sarah Alpar",
+    "height": 64,
+    "reach": 63,
+    "stance": "Southpaw",
+    "W/D/L": "0/0/2"
+  },
+  {
+    "fighter_id": 2547,
+    "name": "Guangyou Ning",
+    "height": 64,
+    "reach": 64,
+    "stance": "Southpaw",
+    "W/D/L": "2/0/2"
+  },
+  {
+    "fighter_id": 415,
+    "name": "Marcus Brimage",
+    "height": 64,
+    "reach": 71,
+    "stance": "Southpaw",
+    "W/D/L": "3/0/4"
+  },
+  {
+    "fighter_id": 3300,
+    "name": "Natalia Silva",
+    "height": 64,
+    "reach": 65,
+    "stance": "Southpaw",
+    "W/D/L": "2/0/0"
+  },
+  {
+    "fighter_id": 415,
+    "name": "Marcus Brimage",
+    "height": 64,
+    "reach": 71,
+    "stance": "Southpaw",
+    "W/D/L": "3/0/4"
+  },
+  {
+    "fighter_id": 3881,
+    "name": "Norifumi Yamamoto",
+    "height": 64,
+    "reach": 66,
+    "stance": "Southpaw",
+    "W/D/L": "0/1/3"
+  },
+  {
+    "fighter_id": 2547,
+    "name": "Guangyou Ning",
+    "height": 64,
+    "reach": 64,
+    "stance": "Southpaw",
+    "W/D/L": "2/0/2"
+  },
+  {
+    "fighter_id": 2919,
+    "name": "Wilson Reis",
+    "height": 64,
+    "reach": 65,
+    "stance": "Southpaw",
+    "W/D/L": "7/0/6"
+  },
+  {
+    "fighter_id": 2136,
+    "name": "Zach Makovsky",
+    "height": 64,
+    "reach": 64,
+    "stance": "Southpaw",
+    "W/D/L": "3/0/4"
+  },
+  {
+    "fighter_id": 286,
+    "name": "Joseph Benavidez",
+    "height": 64,
+    "reach": 65,
+    "stance": "Southpaw",
+    "W/D/L": "13/0/6"
+  },
+  {
+    "fighter_id": 286,
+    "name": "Joseph Benavidez",
+    "height": 64,
+    "reach": 65,
+    "stance": "Southpaw",
+    "W/D/L": "13/0/6"
+  },
+  {
+    "fighter_id": 1407,
+    "name": "Veronica Hardy",
+    "height": 64,
+    "reach": 64,
+    "stance": "Southpaw",
+    "W/D/L": "2/0/4"
+  },
+  {
+    "fighter_id": 1558,
+    "name": "Carlos Huachin",
+    "height": 64,
+    "reach": 67,
+    "stance": "Southpaw",
+    "W/D/L": "0/0/2"
+  },
+  {
+    "fighter_id": 1407,
+    "name": "Veronica Hardy",
+    "height": 64,
+    "reach": 64,
+    "stance": "Southpaw",
+    "W/D/L": "2/0/4"
+  },
+  {
+    "fighter_id": 1979,
+    "name": "Amanda Lemos",
+    "height": 64,
+    "reach": 65,
+    "stance": "Southpaw",
+    "W/D/L": "7/0/2"
+  },
+  {
+    "fighter_id": 1979,
+    "name": "Amanda Lemos",
+    "height": 64,
+    "reach": 65,
+    "stance": "Southpaw",
+    "W/D/L": "7/0/2"
+  },
+  {
+    "fighter_id": 88,
+    "name": "Sarah Alpar",
+    "height": 64,
+    "reach": 63,
+    "stance": "Southpaw",
+    "W/D/L": "0/0/2"
+  },
+  {
+    "fighter_id": 2919,
+    "name": "Wilson Reis",
+    "height": 64,
+    "reach": 65,
+    "stance": "Southpaw",
+    "W/D/L": "7/0/6"
+  },
+  {
+    "fighter_id": 2388,
+    "name": "Nicco Montano",
+    "height": 65,
+    "reach": 65,
+    "stance": "Southpaw",
+    "W/D/L": "0/0/1"
+  },
+  {
+    "fighter_id": 3466,
+    "name": "Tatiana Suarez",
+    "height": 65,
+    "reach": 66,
+    "stance": "Southpaw",
+    "W/D/L": "5/0/0"
+  },
+  {
+    "fighter_id": 3466,
+    "name": "Tatiana Suarez",
+    "height": 65,
+    "reach": 66,
+    "stance": "Southpaw",
+    "W/D/L": "5/0/0"
+  },
+  {
+    "fighter_id": 17,
+    "name": "Zarrukh Adashev",
+    "height": 65,
+    "reach": 65,
+    "stance": "Southpaw",
+    "W/D/L": "1/0/3"
+  },
+  {
+    "fighter_id": 3252,
+    "name": "Valentina Shevchenko",
+    "height": 65,
+    "reach": 66,
+    "stance": "Southpaw",
+    "W/D/L": "12/0/3"
+  },
+  {
+    "fighter_id": 1670,
+    "name": "Carls John De Tomas",
+    "height": 65,
+    "reach": 71,
+    "stance": "Southpaw",
+    "W/D/L": "0/0/2"
+  },
+  {
+    "fighter_id": 1763,
+    "name": "Nadia Kassem",
+    "height": 65,
+    "reach": 66,
+    "stance": "Southpaw",
+    "W/D/L": "1/0/2"
+  },
+  {
+    "fighter_id": 1670,
+    "name": "Carls John De Tomas",
+    "height": 65,
+    "reach": 71,
+    "stance": "Southpaw",
+    "W/D/L": "0/0/2"
+  },
+  {
+    "fighter_id": 57,
+    "name": "JJ Aldrich",
+    "height": 65,
+    "reach": 67,
+    "stance": "Southpaw",
+    "W/D/L": "7/0/5"
+  },
+  {
+    "fighter_id": 1756,
+    "name": "Manel Kape",
+    "height": 65,
+    "reach": 68,
+    "stance": "Southpaw",
+    "W/D/L": "3/0/2"
+  },
+  {
+    "fighter_id": 1163,
+    "name": "Mitch Gagnon",
+    "height": 65,
+    "reach": 65,
+    "stance": "Southpaw",
+    "W/D/L": "4/0/4"
+  },
+  {
+    "fighter_id": 57,
+    "name": "JJ Aldrich",
+    "height": 65,
+    "reach": 67,
+    "stance": "Southpaw",
+    "W/D/L": "7/0/5"
+  },
+  {
+    "fighter_id": 1191,
+    "name": "Elias Garcia",
+    "height": 65,
+    "reach": 67,
+    "stance": "Southpaw",
+    "W/D/L": "0/0/2"
+  },
+  {
+    "fighter_id": 17,
+    "name": "Zarrukh Adashev",
+    "height": 65,
+    "reach": 65,
+    "stance": "Southpaw",
+    "W/D/L": "1/0/3"
+  },
+  {
+    "fighter_id": 1763,
+    "name": "Nadia Kassem",
+    "height": 65,
+    "reach": 66,
+    "stance": "Southpaw",
+    "W/D/L": "1/0/2"
+  },
+  {
+    "fighter_id": 3252,
+    "name": "Valentina Shevchenko",
+    "height": 65,
+    "reach": 66,
+    "stance": "Southpaw",
+    "W/D/L": "12/0/3"
+  },
+  {
+    "fighter_id": 2384,
+    "name": "Darrell Montague",
+    "height": 66,
+    "reach": 67,
+    "stance": "Southpaw",
+    "W/D/L": "0/0/2"
+  },
+  {
+    "fighter_id": 1140,
+    "name": "Sarah Frota",
+    "height": 66,
+    "reach": 69,
+    "stance": "Southpaw",
+    "W/D/L": "0/0/2"
+  },
+  {
+    "fighter_id": 1055,
+    "name": "Gabriella Fernandes",
+    "height": 66,
+    "reach": 66,
+    "stance": "Southpaw",
+    "W/D/L": "0/0/1"
+  },
+  {
+    "fighter_id": 1069,
+    "name": "Francisco Figueiredo",
+    "height": 66,
+    "reach": 68,
+    "stance": "Southpaw",
+    "W/D/L": "2/0/2"
+  }
+]

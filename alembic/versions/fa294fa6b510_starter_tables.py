@@ -130,7 +130,8 @@ def upgrade() -> None:
     op.create_table(
         'users',
         sa.Column('user_id', sa.Integer, sa.Identity(), primary_key=True, nullable=False),
-        sa.Column('username', sa.Text, nullable=False),
+        sa.Column('username', sa.Text, nullable=False, unique=True),
+        sa.Column('password', sa.Text, nullable=False),
     )
 
     op.create_table(

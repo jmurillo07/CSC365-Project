@@ -31,13 +31,20 @@ def test_get_fighter_02():
         assert response.json() == json.load(f)
 
 
+def test_get_fighter_03():
+    response = client.get("/fighters/2415")
+    assert response.status_code == 200
+
+    with open("test/fighters/2415.json", encoding="utf-8") as f:
+        assert response.json() == json.load(f)
+
+
 def test_list_fighter_01():
-    response = client.get("/fighters/?stance=o&name=test&height_min=10&height"
-                          + "_max=999&weight_min=100&weight_max=290&reach_min"
-                          + "=20&reach_max=999&wins_min=1&wins_max=300&losses"
-                          + "_min=0&losses_max=100&draws_min=1&draws_max=120&"
-                          + "event=test2&sort=weight&order=descending&limit=5"
-                          + "0&offset=0")
+    response = client.get("/fighters/?stance=south&height_min=0&height_max=999&"
+                          + "reach_min=0&reach_max=999&wins_min=0&wins_max=9999"
+                          + "&losses_min=0&losses_max=9999&draws_min=0&draws_ma"
+                          + "x=9999&event=ufc&sort=height&order=ascending&limit"
+                          + "=50&offset=0")
     assert response.status_code == 200
 
     with open("test/fighters/list_1.json", encoding="utf-8") as f:
@@ -45,28 +52,17 @@ def test_list_fighter_01():
 
 
 def test_list_fighter_02():
-    response = client.get("/fighters/?stance=s&name=test&height_min=0&height_m"
-                          + "ax=999&weight_min=100&weight_max=9999&reach_min=2"
-                          + "0&reach_max=999&wins_min=0&wins_max=20&losses_min"
-                          + "=0&losses_max=20&draws_min=0&draws_max=20&sort=na"
-                          + "me&order=ascending&limit=50&offset=0")
+    response = client.get("/fighters/?height_min=0&height_max=999&reach_min=0&r"
+                          + "each_max=999&wins_min=0&wins_max=9999&losses_min=0"
+                          + "&losses_max=9999&draws_min=0&draws_max=9999&weight"
+                          + "_class=heavyweight&sort=reach&order=descending&lim"
+                          + "it=102&offset=0")
     assert response.status_code == 200
 
     with open("test/fighters/list_2.json", encoding="utf-8") as f:
         assert response.json() == json.load(f)
 
 def test_add_fighter_01():
-    with db.engine.connect() as conn:
-        result = conn.execute(
-            sqlalchemy.text(
-                """
-                SELECT nextval(pg_get_serial_sequence('fighters', 'fighter_id')) as next_id
-                FROM fighters
-                """
-            )
-        )
-        fighter_id = result.first().next_id
-
     response = client.post(
         "/fighters/",
         headers={"Content-Type": "application/json"},
@@ -74,12 +70,12 @@ def test_add_fighter_01():
             "first_name": "Test",
             "last_name": "Delete Me",
             "height": 10,
-            "reach": 74.1,
-            "stance": 2
+            "reach": 74,
+            "stance_id": 2
         }
     )
     assert response.status_code == 200
-    assert response.json()["fighter_id"] == fighter_id
+    fighter_id = response.json()["fighter_id"]
     get_request = "/fighters/" + str(fighter_id)
     response = client.get(get_request)
     assert response.status_code == 200
@@ -88,9 +84,9 @@ def test_add_fighter_01():
         "fighter_id": fighter_id,
         "name": "Test Delete Me",
         "height": 10,
-        "weight": None,
-        "reach": 74.1,
+        "reach": 74,
         "stance": "Southpaw",
+        "weight": None,
         "wins": 0,
         "losses": 0,
         "draws": 0,
@@ -119,17 +115,6 @@ def test_add_fighter_01():
 
 
 def test_add_fighter_02():
-    with db.engine.connect() as conn:
-        result = conn.execute(
-            sqlalchemy.text(
-                """
-                SELECT nextval(pg_get_serial_sequence('fighters', 'fighter_id')) as next_id
-                FROM fighters
-                """
-            )
-        )
-        fighter_id = result.first().next_id
-
     response = client.post(
         "/fighters/",
         headers={"Content-Type": "application/json"},
@@ -138,11 +123,11 @@ def test_add_fighter_02():
             "last_name": "Delete Me",
             "height": 0,
             "reach": 0,
-            "stance": None
+            "stance_id": None
         }
     )
     assert response.status_code == 200
-    assert response.json()["fighter_id"] == fighter_id
+    fighter_id = response.json()["fighter_id"]
     get_request = "/fighters/" + str(fighter_id)
     response = client.get(get_request)
     assert response.status_code == 200
@@ -151,9 +136,91 @@ def test_add_fighter_02():
         "fighter_id": fighter_id,
         "name": "Test Delete Me",
         "height": 0,
-        "weight": None,
         "reach": 0,
         "stance": None,
+        "weight": None,
+        "wins": 0,
+        "losses": 0,
+        "draws": 0,
+        "recent_fights": []
+    }
+
+    assert response.json() == expected_response
+
+    with db.engine.begin() as conn:
+        conn.execute(
+            sqlalchemy.delete(
+                db.fighters,
+            )
+            .where(db.fighters.c.fighter_id == fighter_id)
+        )
+    
+    # Ensure the identity key is after the max id
+    with db.engine.connect() as conn:
+        result = conn.execute(
+            sqlalchemy.text(
+                """
+                SELECT setval(pg_get_serial_sequence('fighters', 'fighter_id'), max(fighter_id))
+                FROM fighters"""
+            )
+        )
+
+
+def test_update_fight_01():
+    response = client.post(
+        "/fighters/",
+        headers={"Content-Type": "application/json"},
+        json={
+            "first_name": "Test",
+            "last_name": "Delete Me",
+            "height": 0,
+            "reach": 0,
+            "stance_id": None
+        }
+    )
+    assert response.status_code == 200
+    fighter_id = response.json()["fighter_id"]
+    get_request = "/fighters/" + str(fighter_id)
+    response = client.get(get_request)
+    assert response.status_code == 200
+
+    expected_response = {
+        "fighter_id": fighter_id,
+        "name": "Test Delete Me",
+        "height": 0,
+        "reach": 0,
+        "stance": None,
+        "weight": None,
+        "wins": 0,
+        "losses": 0,
+        "draws": 0,
+        "recent_fights": []
+    }
+
+    assert response.json() == expected_response
+
+    response = client.put(
+        "/fighters/" + str(fighter_id),
+        headers={"Content-Type": "application/json"},
+        json={
+            "first_name": "Testtesttest",
+            "height": 50,
+            "reach": 50,
+            "stance_id": 3
+        }
+    )
+    assert response.status_code == 200
+    get_request = "/fighters/" + str(fighter_id)
+    response = client.get(get_request)
+    assert response.status_code == 200
+
+    expected_response = {
+        "fighter_id": fighter_id,
+        "name": "Testtesttest Delete Me",
+        "height": 50,
+        "reach": 50,
+        "stance": "Switch",
+        "weight": None,
         "wins": 0,
         "losses": 0,
         "draws": 0,
@@ -186,6 +253,53 @@ def test_get_fighter_404():
     assert response.status_code == 404
 
 
+def test_add_fighter_409():
+    response = client.post(
+        "/fighters/",
+        headers={"Content-Type": "application/json"},
+        json={
+            "first_name": "Test",
+            "last_name": "Delete Me",
+            "height": 0,
+            "reach": 0,
+            "stance_id": None
+        }
+    )
+    assert response.status_code == 200
+    fighter_id = response.json()["fighter_id"]
+
+    response = client.post(
+        "/fighters/",
+        headers={"Content-Type": "application/json"},
+        json={
+            "first_name": "Test",
+            "last_name": "Delete Me",
+            "height": 0,
+            "reach": 0,
+            "stance_id": None
+        }
+    )
+    assert response.status_code == 409
+
+    with db.engine.begin() as conn:
+        conn.execute(
+            sqlalchemy.delete(
+                db.fighters,
+            )
+            .where(db.fighters.c.fighter_id == fighter_id)
+        )
+    
+    # Ensure the identity key is after the max id
+    with db.engine.connect() as conn:
+        result = conn.execute(
+            sqlalchemy.text(
+                """
+                SELECT setval(pg_get_serial_sequence('fighters', 'fighter_id'), max(fighter_id))
+                FROM fighters"""
+            )
+        )
+
+
 def test_add_fighter_400():
     # Wrong height
     response = client.post(
@@ -196,7 +310,7 @@ def test_add_fighter_400():
             "last_name": "Delete Me",
             "height": 1000000,
             "reach": 0,
-            "stance": 1
+            "stance_id": 1
         }
     )
     assert response.status_code == 400
@@ -208,7 +322,7 @@ def test_add_fighter_400():
             "last_name": "Delete Me",
             "height": -1,
             "reach": 0,
-            "stance": 1
+            "stance_id": 1
         }
     )
     assert response.status_code == 400
@@ -222,7 +336,7 @@ def test_add_fighter_400():
             "last_name": "Delete Me",
             "height": 0,
             "reach": -1,
-            "stance": 1
+            "stance_id": 1
         }
     )
     assert response.status_code == 400
@@ -233,8 +347,8 @@ def test_add_fighter_400():
             "first_name": "Test",
             "last_name": "Delete Me",
             "height": 0,
-            "reach": 100,
-            "stance": 1
+            "reach": 1001231,
+            "stance_id": 1
         }
     )
     assert response.status_code == 400
@@ -248,7 +362,7 @@ def test_add_fighter_400():
             "last_name": "Delete Me",
             "height": 0,
             "reach": 0,
-            "stance": 0
+            "stance_id": 0
         }
     )
     assert response.status_code == 400
@@ -260,7 +374,7 @@ def test_add_fighter_400():
             "last_name": "Delete Me",
             "height": 0,
             "reach": 0,
-            "stance": 4
+            "stance_id": 4
         }
     )
     assert response.status_code == 400
