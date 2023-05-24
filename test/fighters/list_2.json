@@ -1,20 +1,818 @@
 [
-    {
-      "fighter_id": 3,
-      "name": "Test Bunny",
-      "height": 100,
-      "weight": 7414,
-      "reach": 48.9,
-      "stance": "Switch",
-      "W/D/L": "1/0/0"
-    },
-    {
-      "fighter_id": 2,
-      "name": "Test Robot",
-      "height": 70,
-      "weight": 160,
-      "reach": 70,
-      "stance": "Southpaw",
-      "W/D/L": "1/2/1"
-    }
-  ]
+  {
+    "fighter_id": 1697,
+    "name": "Jon Jones",
+    "height": 76,
+    "reach": 84,
+    "stance": "Orthodox",
+    "W/D/L": "21/0/1"
+  },
+  {
+    "fighter_id": 2716,
+    "name": "Sergei Pavlovich",
+    "height": 75,
+    "reach": 84,
+    "stance": "Southpaw",
+    "W/D/L": "5/0/1"
+  },
+  {
+    "fighter_id": 3462,
+    "name": "Stefan Struve",
+    "height": 83,
+    "reach": 84,
+    "stance": "Orthodox",
+    "W/D/L": "13/0/11"
+  },
+  {
+    "fighter_id": 1697,
+    "name": "Jon Jones",
+    "height": 76,
+    "reach": 84,
+    "stance": "Orthodox",
+    "W/D/L": "21/0/1"
+  },
+  {
+    "fighter_id": 2582,
+    "name": "Kennedy Nzechukwu",
+    "height": 77,
+    "reach": 83,
+    "stance": "Southpaw",
+    "W/D/L": "5/0/3"
+  },
+  {
+    "fighter_id": 2533,
+    "name": "Francis Ngannou",
+    "height": 76,
+    "reach": 83,
+    "stance": "Orthodox",
+    "W/D/L": "12/0/2"
+  },
+  {
+    "fighter_id": 3008,
+    "name": "Mike Rodriguez",
+    "height": 76,
+    "reach": 82,
+    "stance": "Southpaw",
+    "W/D/L": "2/0/5"
+  },
+  {
+    "fighter_id": 1680,
+    "name": "Lavar Johnson",
+    "height": 76,
+    "reach": 82,
+    "stance": "Orthodox",
+    "W/D/L": "2/0/2"
+  },
+  {
+    "fighter_id": 1855,
+    "name": "Cheick Kongo",
+    "height": 76,
+    "reach": 82,
+    "stance": "Orthodox",
+    "W/D/L": "11/1/6"
+  },
+  {
+    "fighter_id": 2361,
+    "name": "Matt Mitrione",
+    "height": 75,
+    "reach": 82,
+    "stance": "Switch",
+    "W/D/L": "9/0/5"
+  },
+  {
+    "fighter_id": 3286,
+    "name": "Antonio Silva",
+    "height": 76,
+    "reach": 82,
+    "stance": "Orthodox",
+    "W/D/L": "3/1/7"
+  },
+  {
+    "fighter_id": 3747,
+    "name": "Johnny Walker",
+    "height": 78,
+    "reach": 82,
+    "stance": "Orthodox",
+    "W/D/L": "6/0/4"
+  },
+  {
+    "fighter_id": 3403,
+    "name": "Daniel Spitz",
+    "height": 79,
+    "reach": 82,
+    "stance": "Orthodox",
+    "W/D/L": "1/0/3"
+  },
+  {
+    "fighter_id": 2921,
+    "name": "Goran Reljic",
+    "height": 75,
+    "reach": 81,
+    "stance": "Southpaw",
+    "W/D/L": "1/0/1"
+  },
+  {
+    "fighter_id": 348,
+    "name": "James Bochnovic",
+    "height": 76,
+    "reach": 81,
+    "stance": "Orthodox",
+    "W/D/L": "0/0/1"
+  },
+  {
+    "fighter_id": 1181,
+    "name": "Ciryl Gane",
+    "height": 76,
+    "reach": 81,
+    "stance": "Orthodox",
+    "W/D/L": "8/0/2"
+  },
+  {
+    "fighter_id": 2409,
+    "name": "Christian Morecraft",
+    "height": 78,
+    "reach": 81,
+    "stance": "Orthodox",
+    "W/D/L": "1/0/3"
+  },
+  {
+    "fighter_id": 1992,
+    "name": "Brock Lesnar",
+    "height": 75,
+    "reach": 81,
+    "stance": "Orthodox",
+    "W/D/L": "4/0/3"
+  },
+  {
+    "fighter_id": 3816,
+    "name": "Adam Wieczorek",
+    "height": 77,
+    "reach": 81,
+    "stance": "Orthodox",
+    "W/D/L": "2/0/1"
+  },
+  {
+    "fighter_id": 2236,
+    "name": "Sean McCorkle",
+    "height": 79,
+    "reach": 81,
+    "stance": "Orthodox",
+    "W/D/L": "1/0/2"
+  },
+  {
+    "fighter_id": 2225,
+    "name": "Don'Tale Mayes",
+    "height": 78,
+    "reach": 81,
+    "stance": "Orthodox",
+    "W/D/L": "2/0/3"
+  },
+  {
+    "fighter_id": 2674,
+    "name": "Soa Palelei",
+    "height": 76,
+    "reach": 81,
+    "stance": "Orthodox",
+    "W/D/L": "4/0/3"
+  },
+  {
+    "fighter_id": 844,
+    "name": "Cyrille Diabate",
+    "height": 78,
+    "reach": 81,
+    "stance": "Southpaw",
+    "W/D/L": "4/0/4"
+  },
+  {
+    "fighter_id": 3734,
+    "name": "Alexander Volkov",
+    "height": 79,
+    "reach": 80,
+    "stance": "Orthodox",
+    "W/D/L": "10/0/4"
+  },
+  {
+    "fighter_id": 561,
+    "name": "Shane Carwin",
+    "height": 74,
+    "reach": 80,
+    "stance": "Orthodox",
+    "W/D/L": "4/0/2"
+  },
+  {
+    "fighter_id": 2609,
+    "name": "Aleksei Oleinik",
+    "height": 74,
+    "reach": 80,
+    "stance": "Orthodox",
+    "W/D/L": "9/0/8"
+  },
+  {
+    "fighter_id": 1956,
+    "name": "Justin Ledet",
+    "height": 76,
+    "reach": 80,
+    "stance": "Orthodox",
+    "W/D/L": "3/0/4"
+  },
+  {
+    "fighter_id": 3494,
+    "name": "Tim Sylvia",
+    "height": 80,
+    "reach": 80,
+    "stance": "Orthodox",
+    "W/D/L": "9/0/4"
+  },
+  {
+    "fighter_id": 3087,
+    "name": "Ovince Saint Preux",
+    "height": 75,
+    "reach": 80,
+    "stance": "Southpaw",
+    "W/D/L": "14/0/12"
+  },
+  {
+    "fighter_id": 803,
+    "name": "Chris de la Rocha",
+    "height": 75,
+    "reach": 80,
+    "stance": "Orthodox",
+    "W/D/L": "1/0/3"
+  },
+  {
+    "fighter_id": 1408,
+    "name": "Greg Hardy",
+    "height": 77,
+    "reach": 80,
+    "stance": "Orthodox",
+    "W/D/L": "4/0/5"
+  },
+  {
+    "fighter_id": 2500,
+    "name": "Rodrigo Nascimento",
+    "height": 74,
+    "reach": 80,
+    "stance": "Orthodox",
+    "W/D/L": "3/0/1"
+  },
+  {
+    "fighter_id": 3087,
+    "name": "Ovince Saint Preux",
+    "height": 75,
+    "reach": 80,
+    "stance": "Southpaw",
+    "W/D/L": "14/0/12"
+  },
+  {
+    "fighter_id": 18,
+    "name": "Israel Adesanya",
+    "height": 76,
+    "reach": 80,
+    "stance": "Switch",
+    "W/D/L": "0/0/1"
+  },
+  {
+    "fighter_id": 2343,
+    "name": "Stipe Miocic",
+    "height": 76,
+    "reach": 80,
+    "stance": "Orthodox",
+    "W/D/L": "14/0/4"
+  },
+  {
+    "fighter_id": 340,
+    "name": "Curtis Blaydes",
+    "height": 76,
+    "reach": 80,
+    "stance": "Orthodox",
+    "W/D/L": "12/0/3"
+  },
+  {
+    "fighter_id": 3673,
+    "name": "Jared Vanderaa",
+    "height": 76,
+    "reach": 80,
+    "stance": "Orthodox",
+    "W/D/L": "1/0/6"
+  },
+  {
+    "fighter_id": 1956,
+    "name": "Justin Ledet",
+    "height": 76,
+    "reach": 80,
+    "stance": "Orthodox",
+    "W/D/L": "3/0/4"
+  },
+  {
+    "fighter_id": 2842,
+    "name": "Jiri Prochazka",
+    "height": 75,
+    "reach": 80,
+    "stance": "Orthodox",
+    "W/D/L": "3/0/0"
+  },
+  {
+    "fighter_id": 1333,
+    "name": "Maurice Greene",
+    "height": 79,
+    "reach": 80,
+    "stance": "Orthodox",
+    "W/D/L": "4/0/4"
+  },
+  {
+    "fighter_id": 15,
+    "name": "Juan Adams",
+    "height": 77,
+    "reach": 80,
+    "stance": "Orthodox",
+    "W/D/L": "1/0/3"
+  },
+  {
+    "fighter_id": 2650,
+    "name": "Alistair Overeem",
+    "height": 76,
+    "reach": 80,
+    "stance": "Orthodox",
+    "W/D/L": "12/0/8"
+  },
+  {
+    "fighter_id": 2155,
+    "name": "Jimi Manuwa",
+    "height": 73,
+    "reach": 79,
+    "stance": "Orthodox",
+    "W/D/L": "6/0/6"
+  },
+  {
+    "fighter_id": 2686,
+    "name": "Josh Parisian",
+    "height": 76,
+    "reach": 79,
+    "stance": "Orthodox",
+    "W/D/L": "2/0/3"
+  },
+  {
+    "fighter_id": 85,
+    "name": "Jailton Almeida",
+    "height": 75,
+    "reach": 79,
+    "stance": "Orthodox",
+    "W/D/L": "3/0/0"
+  },
+  {
+    "fighter_id": 541,
+    "name": "Antonio Carlos Junior",
+    "height": 74,
+    "reach": 79,
+    "stance": "Orthodox",
+    "W/D/L": "1/0/1"
+  },
+  {
+    "fighter_id": 264,
+    "name": "Alan Baudot",
+    "height": 75,
+    "reach": 79,
+    "stance": "Orthodox",
+    "W/D/L": "0/0/4"
+  },
+  {
+    "fighter_id": 2002,
+    "name": "Derrick Lewis",
+    "height": 75,
+    "reach": 79,
+    "stance": "Orthodox",
+    "W/D/L": "17/0/9"
+  },
+  {
+    "fighter_id": 3654,
+    "name": "Mohammed Usman",
+    "height": 74,
+    "reach": 79,
+    "stance": "Orthodox",
+    "W/D/L": "1/0/0"
+  },
+  {
+    "fighter_id": 85,
+    "name": "Jailton Almeida",
+    "height": 75,
+    "reach": 79,
+    "stance": "Orthodox",
+    "W/D/L": "3/0/0"
+  },
+  {
+    "fighter_id": 2727,
+    "name": "Tyson Pedro",
+    "height": 75,
+    "reach": 79,
+    "stance": "Orthodox",
+    "W/D/L": "5/0/4"
+  },
+  {
+    "fighter_id": 3405,
+    "name": "Daniel Spohn",
+    "height": 76,
+    "reach": 79,
+    "stance": "Southpaw",
+    "W/D/L": "0/0/1"
+  },
+  {
+    "fighter_id": 3598,
+    "name": "Dequan Townsend",
+    "height": 75,
+    "reach": 79,
+    "stance": "Orthodox",
+    "W/D/L": "0/0/2"
+  },
+  {
+    "fighter_id": 541,
+    "name": "Antonio Carlos Junior",
+    "height": 74,
+    "reach": 79,
+    "stance": "Orthodox",
+    "W/D/L": "1/0/1"
+  },
+  {
+    "fighter_id": 439,
+    "name": "Travis Browne",
+    "height": 78,
+    "reach": 79,
+    "stance": "Orthodox",
+    "W/D/L": "9/1/7"
+  },
+  {
+    "fighter_id": 3392,
+    "name": "Ryan Spann",
+    "height": 77,
+    "reach": 79,
+    "stance": "Orthodox",
+    "W/D/L": "7/0/2"
+  },
+  {
+    "fighter_id": 802,
+    "name": "Philip De Fries",
+    "height": 77,
+    "reach": 79,
+    "stance": "Orthodox",
+    "W/D/L": "2/0/3"
+  },
+  {
+    "fighter_id": 787,
+    "name": "Phil Davis",
+    "height": 74,
+    "reach": 79,
+    "stance": "Orthodox",
+    "W/D/L": "9/1/3"
+  },
+  {
+    "fighter_id": 1825,
+    "name": "Kyle Kingsbury",
+    "height": 76,
+    "reach": 79,
+    "stance": "Orthodox",
+    "W/D/L": "4/0/5"
+  },
+  {
+    "fighter_id": 367,
+    "name": "Stephan Bonnar",
+    "height": 76,
+    "reach": 79,
+    "stance": "Orthodox",
+    "W/D/L": "8/0/7"
+  },
+  {
+    "fighter_id": 2344,
+    "name": "Frank Mir",
+    "height": 75,
+    "reach": 79,
+    "stance": "Southpaw",
+    "W/D/L": "16/0/11"
+  },
+  {
+    "fighter_id": 1688,
+    "name": "Jordan Johnson",
+    "height": 74,
+    "reach": 79,
+    "stance": "Orthodox",
+    "W/D/L": "3/0/0"
+  },
+  {
+    "fighter_id": 1367,
+    "name": "Alexander Gustafsson",
+    "height": 77,
+    "reach": 79,
+    "stance": "Orthodox",
+    "W/D/L": "10/0/8"
+  },
+  {
+    "fighter_id": 3834,
+    "name": "Karl Williams",
+    "height": 75,
+    "reach": 79,
+    "stance": "Orthodox",
+    "W/D/L": "1/0/0"
+  },
+  {
+    "fighter_id": 1499,
+    "name": "Jamahal Hill",
+    "height": 76,
+    "reach": 79,
+    "stance": "Southpaw",
+    "W/D/L": "6/0/1"
+  },
+  {
+    "fighter_id": 119,
+    "name": "Corey Anderson",
+    "height": 75,
+    "reach": 79,
+    "stance": "Orthodox",
+    "W/D/L": "10/0/5"
+  },
+  {
+    "fighter_id": 1367,
+    "name": "Alexander Gustafsson",
+    "height": 77,
+    "reach": 79,
+    "stance": "Orthodox",
+    "W/D/L": "10/0/8"
+  },
+  {
+    "fighter_id": 2090,
+    "name": "Rob MacDonald",
+    "height": 75,
+    "reach": 78,
+    "stance": "Orthodox",
+    "W/D/L": "1/0/2"
+  },
+  {
+    "fighter_id": 3696,
+    "name": "Brandon Vera",
+    "height": 75,
+    "reach": 78,
+    "stance": "Orthodox",
+    "W/D/L": "8/0/7"
+  },
+  {
+    "fighter_id": 2118,
+    "name": "Ruslan Magomedov",
+    "height": 75,
+    "reach": 78,
+    "stance": "Orthodox",
+    "W/D/L": "3/0/0"
+  },
+  {
+    "fighter_id": 3696,
+    "name": "Brandon Vera",
+    "height": 75,
+    "reach": 78,
+    "stance": "Orthodox",
+    "W/D/L": "8/0/7"
+  },
+  {
+    "fighter_id": 1482,
+    "name": "Heath Herring",
+    "height": 76,
+    "reach": 78,
+    "stance": "Orthodox",
+    "W/D/L": "2/0/3"
+  },
+  {
+    "fighter_id": 2031,
+    "name": "Philipe Lins",
+    "height": 74,
+    "reach": 78,
+    "stance": "Orthodox",
+    "W/D/L": "2/0/2"
+  },
+  {
+    "fighter_id": 3628,
+    "name": "Anton Turkalj",
+    "height": 76,
+    "reach": 78,
+    "stance": "Orthodox",
+    "W/D/L": "0/0/1"
+  },
+  {
+    "fighter_id": 3633,
+    "name": "Marcin Tybura",
+    "height": 75,
+    "reach": 78,
+    "stance": "Orthodox",
+    "W/D/L": "11/0/6"
+  },
+  {
+    "fighter_id": 460,
+    "name": "Modestas Bukauskas",
+    "height": 75,
+    "reach": 78,
+    "stance": "Switch",
+    "W/D/L": "2/0/3"
+  },
+  {
+    "fighter_id": 2031,
+    "name": "Philipe Lins",
+    "height": 74,
+    "reach": 78,
+    "stance": "Orthodox",
+    "W/D/L": "2/0/2"
+  },
+  {
+    "fighter_id": 238,
+    "name": "Josh Barnett",
+    "height": 75,
+    "reach": 78,
+    "stance": "Orthodox",
+    "W/D/L": "7/0/3"
+  },
+  {
+    "fighter_id": 916,
+    "name": "Todd Duffee",
+    "height": 75,
+    "reach": 78,
+    "stance": "Orthodox",
+    "W/D/L": "3/1/2"
+  },
+  {
+    "fighter_id": 3794,
+    "name": "Chris Weidman",
+    "height": 74,
+    "reach": 78,
+    "stance": "Orthodox",
+    "W/D/L": "0/0/1"
+  },
+  {
+    "fighter_id": 3189,
+    "name": "Brendan Schaub",
+    "height": 76,
+    "reach": 78,
+    "stance": "Orthodox",
+    "W/D/L": "6/0/5"
+  },
+  {
+    "fighter_id": 449,
+    "name": "Lukasz Brzeski",
+    "height": 76,
+    "reach": 78,
+    "stance": "Orthodox",
+    "W/D/L": "0/0/2"
+  },
+  {
+    "fighter_id": 3361,
+    "name": "Rameau Thierry Sokoudjou",
+    "height": 70,
+    "reach": 78,
+    "stance": "Orthodox",
+    "W/D/L": "1/0/2"
+  },
+  {
+    "fighter_id": 179,
+    "name": "Tom Aspinall",
+    "height": 77,
+    "reach": 78,
+    "stance": "Orthodox",
+    "W/D/L": "5/0/1"
+  },
+  {
+    "fighter_id": 1342,
+    "name": "Maxim Grishin",
+    "height": 75,
+    "reach": 78,
+    "stance": "Orthodox",
+    "W/D/L": "2/0/2"
+  },
+  {
+    "fighter_id": 3083,
+    "name": "Saparbeg Safarov",
+    "height": 73,
+    "reach": 78,
+    "stance": "Orthodox",
+    "W/D/L": "1/0/2"
+  },
+  {
+    "fighter_id": 1342,
+    "name": "Maxim Grishin",
+    "height": 75,
+    "reach": 78,
+    "stance": "Orthodox",
+    "W/D/L": "2/0/2"
+  },
+  {
+    "fighter_id": 1735,
+    "name": "Da Woon Jung",
+    "height": 76,
+    "reach": 78,
+    "stance": "Orthodox",
+    "W/D/L": "4/1/2"
+  },
+  {
+    "fighter_id": 2517,
+    "name": "Nicolae Negumereanu",
+    "height": 72,
+    "reach": 78,
+    "stance": "Orthodox",
+    "W/D/L": "4/0/2"
+  },
+  {
+    "fighter_id": 50,
+    "name": "Ildemar Alcantara",
+    "height": 74,
+    "reach": 78,
+    "stance": "Orthodox",
+    "W/D/L": "1/0/0"
+  },
+  {
+    "fighter_id": 330,
+    "name": "Jan Blachowicz",
+    "height": 74,
+    "reach": 78,
+    "stance": "Orthodox",
+    "W/D/L": "12/1/6"
+  },
+  {
+    "fighter_id": 1674,
+    "name": "Anthony Johnson",
+    "height": 74,
+    "reach": 78,
+    "stance": "Orthodox",
+    "W/D/L": "6/0/2"
+  },
+  {
+    "fighter_id": 2879,
+    "name": "Aleksandar Rakic",
+    "height": 76,
+    "reach": 78,
+    "stance": "Orthodox",
+    "W/D/L": "6/0/2"
+  },
+  {
+    "fighter_id": 3251,
+    "name": "Chase Sherman",
+    "height": 76,
+    "reach": 78,
+    "stance": "Orthodox",
+    "W/D/L": "4/0/10"
+  },
+  {
+    "fighter_id": 3052,
+    "name": "Ben Rothwell",
+    "height": 76,
+    "reach": 78,
+    "stance": "Orthodox",
+    "W/D/L": "9/0/8"
+  },
+  {
+    "fighter_id": 1580,
+    "name": "Khadis Ibragimov",
+    "height": 75,
+    "reach": 78,
+    "stance": "Orthodox",
+    "W/D/L": "0/0/4"
+  },
+  {
+    "fighter_id": 692,
+    "name": "Waldo Cortes-Acosta",
+    "height": 76,
+    "reach": 78,
+    "stance": "Orthodox",
+    "W/D/L": "2/0/0"
+  },
+  {
+    "fighter_id": 1405,
+    "name": "Antoni Hardonk",
+    "height": 76,
+    "reach": 78,
+    "stance": "Orthodox",
+    "W/D/L": "4/0/4"
+  },
+  {
+    "fighter_id": 2766,
+    "name": "Raphael Pessoa",
+    "height": 75,
+    "reach": 78,
+    "stance": "Orthodox",
+    "W/D/L": "1/0/2"
+  },
+  {
+    "fighter_id": 661,
+    "name": "Jake Collier",
+    "height": 75,
+    "reach": 78,
+    "stance": "Orthodox",
+    "W/D/L": "3/0/5"
+  },
+  {
+    "fighter_id": 661,
+    "name": "Jake Collier",
+    "height": 75,
+    "reach": 78,
+    "stance": "Orthodox",
+    "W/D/L": "3/0/5"
+  },
+  {
+    "fighter_id": 3062,
+    "name": "Jairzinho Rozenstruik",
+    "height": 74,
+    "reach": 78,
+    "stance": "Orthodox",
+    "W/D/L": "7/0/4"
+  }
+]
