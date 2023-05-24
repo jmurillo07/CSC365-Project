@@ -1,9 +1,6 @@
 from fastapi import APIRouter, HTTPException
-from enum import Enum
-from fastapi.params import Query
 from src import database as db
-from pydantic import BaseModel, Field
-from typing import List
+from pydantic import BaseModel
 import sqlalchemy
 
 

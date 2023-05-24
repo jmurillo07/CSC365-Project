@@ -100,7 +100,6 @@ def get_fighter(id: int):
         
         recent_matches = []
         for row in rows:
-            print(row)
             if not row.fight_id:
                 # No fights, no point.
                 break
