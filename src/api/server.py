@@ -11,6 +11,7 @@ You can:
 * **list fighters with sorting and filtering options.**
 * **retrieve a specific fight by id**
 * **add a new fighter to the database**
+* **update an existing fighter in the database**
 
 ## Fights   
 
@@ -26,6 +27,15 @@ You can:
 You can:
 * **retrieve a specific event by id**
 * **add a new event by id**
+
+## Users:
+
+You can:
+
+* **add a new user to the database**
+* **retrieve a user's name by id**
+* **list all username's matching a string**
+* **authenticate a given username and password**
 """
 tags_metadata = [
     {
@@ -53,7 +63,7 @@ tags_metadata = [
 app = FastAPI(
     title="UFC",
     description=description,
-    version="0.0.1",
+    version="0.0.2",
     openapi_tags=tags_metadata,
 )
 app.include_router(fights.router)
