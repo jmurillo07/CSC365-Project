@@ -1,6 +1,7 @@
 from fastapi.testclient import TestClient
 from src.api.server import app
 import json
+import pytest
 
 client = TestClient(app)
 
@@ -49,17 +50,37 @@ def test_post_fight_success():
     assert response.status_code == 200
     assert response.json() == expected_data
 
-
-def test_post_fight_missing_fields():
+def test_invalid_fighter_ids():
+    # Test case where fighter1_id and fighter2_id are the same
     payload = {
-        "fighter1_id": 123,
-        "fighter2_id": 456,
-        "round_num": 3,
-        "round_time": "02:35",
-        "event_id": 789,
-        "result": 123,
-        # Missing some fields on purpose
+        "fighter1_id": 1,
+        "fighter2_id": 1,
+        "round_num": 1,
+        "round_time": "00:10",
+        "event_id": 1,
+        "result": 1,
+        "stats_1": 1,
+        "stats_2": 2,
+        "method_of_vic": 1
     }
-
     response = client.post("/fights", json=payload)
-    assert response.status_code == 422
+    print(response.status_code)
+    assert response.status_code == 400
+    assert response.json()["detail"] == "fighter1_id and fighter2_id must be different"
+
+def test_invalid_event_id():
+    # Test case where one or more IDs or stats attributes are invalid
+    payload = {
+        "fighter1_id": 1,
+        "fighter2_id": 2,
+        "round_num": 1,
+        "round_time": "00:10",
+        "event_id": 17,  # Invalid event_id
+        "result": 1,
+        "stats_1": 3,
+        "stats_2": 2,
+        "method_of_vic": 1
+    }
+    response = client.post("/fights", json=payload)
+    assert response.status_code == 400
+    assert response.json()["detail"] == "Invalid event_id"

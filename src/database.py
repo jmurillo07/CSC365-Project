@@ -16,7 +16,15 @@ def database_connection_url():
 # Create a new DB engine based on our connection string
 engine = create_engine(database_connection_url())
 
-metadata_obj = sqlalchemy.MetaData()
+convention = {
+    "ix": "ix_%(column_0_label)s",
+    "uq": "uq_%(table_name)s_%(column_0_name)s",
+    "ck": "ck_%(table_name)s_%(column_0_name)s",
+    "fk": "fk_%(table_name)s_%(column_0_name)s_%(referred_table_name)s",
+    "pk": "pk_%(table_name)s",
+}
+
+metadata_obj = sqlalchemy.MetaData(naming_convention=convention)
 fighters = sqlalchemy.Table("fighters", metadata_obj, autoload_with=engine)
 fights = sqlalchemy.Table("fights", metadata_obj, autoload_with=engine)
 events = sqlalchemy.Table("events", metadata_obj, autoload_with=engine)
@@ -24,3 +32,7 @@ fighter_stats = sqlalchemy.Table("fighter_stats", metadata_obj, autoload_with=en
 events = sqlalchemy.Table("events", metadata_obj, autoload_with=engine)
 stances = sqlalchemy.Table("stances", metadata_obj, autoload_with=engine)
 victory_methods = sqlalchemy.Table("victory_methods", metadata_obj, autoload_with=engine)
+weight_classes = sqlalchemy.Table("weight_classes", metadata_obj, autoload_with=engine)
+venue = sqlalchemy.Table("venue", metadata_obj, autoload_with=engine)
+predictions = sqlalchemy.Table("predictions", metadata_obj, autoload_with=engine)
+users = sqlalchemy.Table("users", metadata_obj, autoload_with=engine)

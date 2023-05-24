@@ -1,0 +1,48 @@
+{
+    "fighter_id": 2415,
+    "name": "Brandon Moreno",
+    "height": 67,
+    "reach": 70,
+    "stance": "Orthodox",
+    "weight": "Flyweight",
+    "wins": 9,
+    "losses": 3,
+    "draws": 2,
+    "recent_fights": [
+      {
+        "fight_id": 99,
+        "event": "UFC 283: Teixeira vs. Hill",
+        "opponent_id": 1068,
+        "opponent_name": "Deiveson Figueiredo",
+        "result": "Win - (KO/TKO)"
+      },
+      {
+        "fight_id": 318,
+        "event": "UFC 277: Pena vs. Nunes 2",
+        "opponent_id": 1758,
+        "opponent_name": "Kai Kara-France",
+        "result": "Win - (KO/TKO)"
+      },
+      {
+        "fight_id": 615,
+        "event": "UFC 270: Ngannou vs. Gane",
+        "opponent_id": 1068,
+        "opponent_name": "Deiveson Figueiredo",
+        "result": "Loss - (U-Dec)"
+      },
+      {
+        "fight_id": 912,
+        "event": "UFC 263: Adesanya vs. Vettori 2",
+        "opponent_id": 1068,
+        "opponent_name": "Deiveson Figueiredo",
+        "result": "Win - (SUB)"
+      },
+      {
+        "fight_id": 1156,
+        "event": "UFC 256: Figueiredo vs. Moreno",
+        "opponent_id": 1068,
+        "opponent_name": "Deiveson Figueiredo",
+        "result": "Draw - (M-Dec)"
+      }
+    ]
+  }
