@@ -18,7 +18,18 @@ def get_fights(fight_id: int):
 
     conn = db.engine.connect()
     stmnt = (sqlalchemy.text("""
-        SELECT *
+        SELECT
+            fight_id,
+            fighter1_id,
+            fighter2_id,
+            round_num,
+            round_time,
+            event_id,
+            result,
+            stats1_id,
+            stats2_id,
+            method_of_vic,
+            weight_class
         FROM fights
         WHERE fight_id = :fight_id
         """))
@@ -38,7 +49,8 @@ def get_fights(fight_id: int):
         "result": result[6],
         "stats1_id":result[7],
         "stats2_id": result[8],
-        "method_of_vic": result[9]
+        "method_of_vic": result[9],
+        "weight_class": result[10]
     }
     return fight
 
@@ -52,6 +64,7 @@ class FightJson(BaseModel):
     stats_1: int = Field(default=0, alias='stats_1')
     stats_2: int = Field(default=0, alias='stats_2')
     method_of_vic: int = Field(default=0, alias='method_of_vic')
+    weight_class: int = Field(default=0, alias='weight_class')
 
 @router.post("/fights", tags = ["fights"])
 def post_fight(fight: FightJson):
@@ -68,7 +81,8 @@ def post_fight(fight: FightJson):
     * `result`: The id of the fighter who won or NULL if the result was a draw.
     * `stats1_id`: The id of the stats table assosciated with fighter 1's performance
     * `stats2_id`: the id of the stats table assosciated with fighter 2's performance
-    * `method_of_vic`: The type of victory (ex. TKO, Decision)
+    * `method_of_vic`: The id of the the method of victory
+    * `weight_class`: The id of the weight class
     """
 
      # Check if fighter1_id and fighter2_id are the same
@@ -96,6 +110,9 @@ def post_fight(fight: FightJson):
         if not conn.execute(exists().where(db.victory_methods.c.id == fight.method_of_vic)).scalar():
             raise HTTPException(status_code=400, detail="Invalid method_of_vic")
 
+        if not conn.execute(exists().where(db.weight_classes.c.id == fight.weight_class)).scalar():
+            raise HTTPException(status_code=400, detail="Invalid weight_class")
+
         # Get the maximum fight_id
         result = conn.execute(
             select(func.max(db.fights.c.fight_id)).scalar()
@@ -115,7 +132,8 @@ def post_fight(fight: FightJson):
                 result=fight.result,
                 stats_1=fight.stats_1,
                 stats_2=fight.stats_2,
-                method_of_vic=fight.method_of_vic
+                method_of_vic=fight.method_of_vic,
+                weight_class=fight.weight_class
             )
         )
 
