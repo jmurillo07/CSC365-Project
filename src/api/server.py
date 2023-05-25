@@ -4,7 +4,7 @@ from src.api import fights
 from src.api import fighters
 from src.api import users
 from src.api import events
-# from src.api import predictions
+from src.api import predictions
 
 
 description = """
