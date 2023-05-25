@@ -219,6 +219,18 @@ def list_fighters(
         order_by += ' DESC'
     else:
         assert False
+    
+    if height_min > height_max:
+        raise HTTPException(status_code=403, detail="height_min greater than height_max")
+    if reach_min > reach_max:
+        raise HTTPException(status_code=403, detail="reach_min greater than reach_max")
+    if wins_min > wins_max:
+        raise HTTPException(status_code=403, detail="wins_min greater than wins_max")
+    if losses_min > losses_max:
+        raise HTTPException(status_code=403, detail="losses_min greater than losses_max")
+    if draws_min > draws_max:
+        raise HTTPException(status_code=403, detail="draws_min greater than draws_max")
+
     fighters = sqlalchemy.text(
         """
         WITH windowed AS (
