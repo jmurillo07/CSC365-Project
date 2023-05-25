@@ -253,6 +253,48 @@ def test_get_fighter_404():
     assert response.status_code == 404
 
 
+def test_list_fighter_403():
+    # height_min > height_max
+    response = client.get("/fighters/?stance=south&height_min=11&height_max=10&"
+                          + "reach_min=0&reach_max=999&wins_min=0&wins_max=9999"
+                          + "&losses_min=0&losses_max=9999&draws_min=0&draws_ma"
+                          + "x=9999&event=ufc&sort=height&order=ascending&limit"
+                          + "=50&offset=0")
+    assert response.status_code == 403
+
+    # reach_min > reach_max
+    response = client.get("/fighters/?stance=south&height_min=0&height_max=999&"
+                          + "reach_min=11&reach_max=10&wins_min=0&wins_max=9999"
+                          + "&losses_min=0&losses_max=9999&draws_min=0&draws_ma"
+                          + "x=9999&event=ufc&sort=height&order=ascending&limit"
+                          + "=50&offset=0")
+    assert response.status_code == 403
+
+    # wins_min > wins_max
+    response = client.get("/fighters/?stance=south&height_min=0&height_max=999&"
+                          + "reach_min=0&reach_max=999&wins_min=100&wins_max=10"
+                          + "&losses_min=0&losses_max=9999&draws_min=0&draws_ma"
+                          + "x=9999&event=ufc&sort=height&order=ascending&limit"
+                          + "=50&offset=0")
+    assert response.status_code == 403
+
+    # losses_min > losses_max
+    response = client.get("/fighters/?stance=south&height_min=0&height_max=999&"
+                          + "reach_min=0&reach_max=999&wins_min=0&wins_max=9999"
+                          + "&losses_min=100&losses_max=10&draws_min=0&draws_ma"
+                          + "x=9999&event=ufc&sort=height&order=ascending&limit"
+                          + "=50&offset=0")
+    assert response.status_code == 403
+
+    # draws_min > draws_max
+    response = client.get("/fighters/?stance=south&height_min=0&height_max=999&"
+                          + "reach_min=0&reach_max=999&wins_min=0&wins_max=9999"
+                          + "&losses_min=0&losses_max=9999&draws_min=100&draws_"
+                          + "max=99&event=ufc&sort=height&order=ascending&limit"
+                          + "=50&offset=0")
+    assert response.status_code == 403
+
+
 def test_add_fighter_409():
     response = client.post(
         "/fighters/",
