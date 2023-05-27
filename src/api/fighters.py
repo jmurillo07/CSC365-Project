@@ -30,7 +30,7 @@ def get_fighter(id: int):
     * `reach`: The reach of the fighter given in inches.
     * `stance`: The stance of the fighter.
     * `weight`: The weight class of the most recent fight the fighter has participated in.
-    * `wins`: The amount of wins the fighter has in UFC events,
+    * `wins`: The amount of wins the fighter has in UFC events.
     * `losses`: The amount of losses the fighter has in UFC events.
     * `draws`: The amount of draws the fighter has in UFC events.
     * `recent_fights`: A list of the 5 most recent fights the fighter participated in. The list is descending ordered based on recency.
@@ -185,7 +185,7 @@ def list_fighters(
     * `height_min`: Minimum height in inches (inclusive). Defaults to 0.
     * `height_max`: Maximum height in inches (inclusive). Defaults to 999.
     * `reach_min`: Minimum reach in inches (inclusive). Defaults to 0.
-    * `reach_max`: Maximum reach in inches (inclusive). Defaults to 9999.
+    * `reach_max`: Maximum reach in inches (inclusive). Defaults to 999.
     * `wins_min`: Minimum number of wins, defaults to 0.
     * `wins_max`: Maximum number of wins, defaults to 9999.
     * `losses_min`: Minimum number of losses, defaults to 0.
@@ -201,7 +201,7 @@ def list_fighters(
     * `reach` - Sorts by reach.
     * `order` - Either "ascending" or "descending".
     
-    The `limit` and `offset` query parameters are used for pagination. limit will limit the amount
+    The `limit` and `offset` query parameters are used for pagination. `limit` will limit the amount
     of results to return and offset species the number of results to skip before returning the result.
     """
     if sort is fighter_sort_options.name:
@@ -316,7 +316,7 @@ def add_fighter(fighter: FighterJson):
     (1 = Orthodox, 2 = Southpaw, 3 = Switch).
 
     This endpoint ensures that the `stance_id` is either null or a correct enumeration, that
-    the `height` and `reach` is within the bounds of 0 to 9999. Besides from stance, no other
+    the `height` and `reach` is within the bounds of 0 to 999. Besides from stance, no other
     value should be given as null.
 
     If there exists a fighter with the same name (concatenation of first and last, case-
@@ -332,10 +332,10 @@ def add_fighter(fighter: FighterJson):
     else:
         stance = fighter.stance_id
     
-    if fighter.height < 0 or fighter.height > 9999 or fighter.height is None:
+    if fighter.height < 0 or fighter.height > 999 or fighter.height is None:
         raise HTTPException(status_code=400, detail="improper height given")
     
-    if fighter.reach < 0 or fighter.reach > 9999 or fighter.reach is None:
+    if fighter.reach < 0 or fighter.reach > 999 or fighter.reach is None:
         raise HTTPException(status_code=400, detail="improper reach given")
 
     if fighter.first_name is None:
@@ -403,7 +403,7 @@ def update_fighter(fighter_id: int, fighter: FighterJson):
 
     with db.engine.connect() as conn:
         result = conn.execute(stored_fighter_data)
-        if result is None:
+        if result.fetchone() is None:
             raise HTTPException(status_code=404, detail='fighter does not exist')
         for row in result:
             stored_fighter_model = FighterJson(**row._mapping)
