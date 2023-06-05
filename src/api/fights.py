@@ -6,9 +6,6 @@ from pydantic import BaseModel, Field
 
 router = APIRouter()
 
-# Julian Murillo's V2 Endpoints
-# goal will be to add more catch statements (illegal or invalid inserts) by V3
-
 @router.get("/fights/{fight_id}", tags = ["fights"])
 def get_fights(fight_id: int):
     """
