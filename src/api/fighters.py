@@ -249,8 +249,8 @@ def list_fighters(
                 LEFT JOIN stances ON fighters.stance_id = stances.id
                 LEFT JOIN fights ON fighters.fighter_id = fights.fighter1_id
                     OR fighters.fighter_id = fights.fighter2_id
-                INNER JOIN events ON events.event_id = fights.event_id
-                INNER JOIN weight_classes ON fights.weight_class = weight_classes.id
+                LEFT JOIN events ON events.event_id = fights.event_id
+                LEFT JOIN weight_classes ON fights.weight_class = weight_classes.id
             WHERE CONCAT(first_name, ' ', last_name) ILIKE :name
                 AND event_name ILIKE :event
                 AND stance ILIKE :stance
@@ -258,7 +258,7 @@ def list_fighters(
                 AND height BETWEEN (:height_min) AND (:height_max)
                 AND reach BETWEEN (:reach_min) AND (:reach_max)
         )
-        SELECT *
+        SELECT DISTINCT *
         FROM windowed
         WHERE wins BETWEEN (:wins_min) AND (:wins_max)
             AND draws BETWEEN (:draws_min) AND (:draws_max)
@@ -403,9 +403,10 @@ def update_fighter(fighter_id: int, fighter: FighterJson):
 
     with db.engine.connect() as conn:
         result = conn.execute(stored_fighter_data)
-        if result.fetchone() is None:
+        results = result.fetchall()
+        if results is None:
             raise HTTPException(status_code=404, detail='fighter does not exist')
-        for row in result:
+        for row in results:
             stored_fighter_model = FighterJson(**row._mapping)
             update_data = fighter.dict(exclude_unset=True)
             updated_fighter = stored_fighter_model.copy(update=update_data)

@@ -129,7 +129,7 @@ def upgrade() -> None:
 
     op.create_table(
         'users',
-        sa.Column('user_id', sa.Integer, sa.Identity(), primary_key=True, nullable=False),
+        sa.Column('user_id', sa.Integer, sa.Identity(), primary_key=True, nullable=False, ),
         sa.Column('username', sa.Text, nullable=False, unique=True),
         sa.Column('password', sa.Text, nullable=False),
     )
@@ -139,7 +139,9 @@ def upgrade() -> None:
         sa.Column('prediction_id', sa.Integer, sa.Identity(), primary_key=True, nullable=False),
         sa.Column('fight_id', sa.BigInteger, sa.ForeignKey('fights.fight_id'), nullable=False),
         sa.Column('fighter_id', sa.Integer, sa.ForeignKey('fighters.fighter_id'), nullable=False),
-        sa.Column('user_id', sa.Integer, sa.ForeignKey('users.user_id'), nullable=False),
+        sa.Column('user_id', sa.Integer, sa.ForeignKey('users.user_id', ondelete='CASCADE'), nullable=False),
+        sa.Column('created_at', sa.TIMESTAMP, nullable=False, server_default=sa.func.now()),
+        sa.UniqueConstraint('fight_id', 'user_id'),
     )
 
 
