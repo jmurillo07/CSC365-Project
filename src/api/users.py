@@ -1,12 +1,25 @@
 from fastapi import APIRouter, HTTPException
 from src import database as db
-from pydantic import BaseModel
+from typing import Optional
+from pydantic import BaseModel, Field
 import sqlalchemy
 
 
 class UserJson(BaseModel):
     username: str
     password: str
+
+
+class UserUpdateNameJson(BaseModel):
+    old_username: str
+    password: str
+    new_username: str
+
+
+class UserUpdatePasswordJson(BaseModel):
+    username: str
+    old_password: str
+    new_password: str
 
 router = APIRouter()
 
@@ -27,7 +40,7 @@ def get_user(id: int):
     return {'username': result[0]}
 
 
-@router.get("/users/", tags=["users"])
+@router.get("/users", tags=["users"])
 def get_users(name: str = ""):
     """
     This endpoint takes in a username and returns every user_id and username where
@@ -53,12 +66,12 @@ def get_users(name: str = ""):
 @router.post("/users/login", tags=["users"])
 def authenticate_user(user: UserJson):
     """
-    This endpoint takes in a usertype and verifies that the user exists
+    This endpoint takes in a user datatype and verifies that the user exists
     and that the password given is correct for that user.
 
     If the user does not exist, raises an error.
 
-    Returns a string indicating whether or not the password was correct.
+    Upon success returns the `user_id` of the authenticated user.
     """
     verify = sqlalchemy.text(
         """
@@ -85,12 +98,12 @@ def authenticate_user(user: UserJson):
         result = conn.execute(verify, [{'username': user.username,
                                         'password': user.password}]).first()
         if result is None:
-            return {'status': 'failed'}
+            raise HTTPException(status_code=401, detail='invalid password, try again.')
     
-    return {'status': 'success'}
+    return {'user_id': result.user_id}
 
 
-@router.post("/users/create", tags=["users"])
+@router.post("/users", tags=["users"])
 def add_user(user: UserJson):
     """
     This endpoint takes in a user datatype and adds it to the database.
@@ -125,3 +138,99 @@ def add_user(user: UserJson):
         conn.commit()
     
     return {"user_id": result.first()[0]}
+
+
+@router.post("/users/delete", tags=["users"])
+def delete_user(user: UserJson):
+    """
+    This endpoint takes in a user datatype, verifies that the user exists, authenticates
+    the user, then deletes all known predictions associated with the user and
+    finally the user itself.
+
+    Throws an error when the user does not exist or fails authentication.
+    """
+    result = authenticate_user(user)  # will raise errors if user doesnt exist/password is wrong
+    
+    delete = (
+        sqlalchemy.delete(db.users).
+        where(db.users.c.user_id == result['user_id'])
+    )
+
+    with db.engine.begin() as conn:
+        result = conn.execute(delete)
+    
+        if result.rowcount > 0:
+            return {'result': 'delete successful'}
+        else:
+            conn.rollback()
+            raise HTTPException(status_code=500, detail='delete went wrong, action rolled back')
+
+
+@router.put("/users/update/name", tags=["users"])
+def update_username(user: UserUpdateNameJson):
+    """
+    This endpoint takes in a `username` and `password` and a new desired username.
+
+    After authenticating the user, checks whether or not the
+    desired username is available.
+
+    If so, it will change the username. If the name is not available, it will refuse to
+    change it.
+
+    Returns success upon a successful update, errors otherwise.
+    """
+    user_model = UserJson(username=user.old_username, password=user.password)
+    auth_result = authenticate_user(user_model)  # will raise errors if user doesnt exist/password is wrong
+
+    with db.engine.begin() as conn:
+        result = conn.execute(
+            sqlalchemy.select(db.users.c.user_id).
+            where(db.users.c.username == user.new_username)
+        ).fetchall()
+        if result:
+            raise HTTPException(status_code=409, detail='name already in use')
+
+        result = conn.execute(
+            sqlalchemy.update(db.users).
+            where(db.users.c.user_id == auth_result['user_id']).
+            values(username=user.new_username)
+        )
+
+        if result.rowcount > 0:
+            return {'result': 'update successful'}
+        else:
+            conn.rollback()
+            raise HTTPException(status_code=500, detail='update went wrong, action rolled back')
+
+
+@router.put("/users/update/password", tags=["users"])
+def update_password(user: UserUpdatePasswordJson):
+    """
+    This endpoint takes in a `username` and `password` and a new desired password.
+
+    If the user is authenticated, then the password will be changed.
+
+    Returns success upon a successful update.
+    Errors if the user doesn't exist or authentication fails.
+    """
+    user_model = UserJson(username=user.username, password=user.old_password)
+    auth_result = authenticate_user(user_model)  # will raise errors if user doesnt exist/password is wrong
+
+    update = sqlalchemy.text(
+        """
+        UPDATE users SET password = crypt(:password, gen_salt('bf'))
+        WHERE users.user_id = (:user_id)
+        """
+    ).bindparams(
+        sqlalchemy.bindparam('user_id', auth_result['user_id']),
+        sqlalchemy.bindparam('password', user.new_password),
+    )
+
+    with db.engine.begin() as conn:
+        result = conn.execute(update)
+
+        if result.rowcount > 0:
+            return {'result': 'update successful'}
+        else:
+            conn.rollback()
+            raise HTTPException(status_code=500, detail='update went wrong, action rolled back')

@@ -56,12 +56,12 @@ tags_metadata = [
         "description": "Access information on events.",
     },
     {
-        "name": "users",
-        "description": "Access information on users.",
-    },
-    {
         "name": "predictions",
         "description": "Access information on predictions.",
+    },
+    {
+        "name": "users",
+        "description": "Access information on users.",
     },
 ]
 
@@ -75,7 +75,7 @@ app.include_router(fights.router)
 app.include_router(events.router)
 app.include_router(fighters.router)
 app.include_router(users.router)
-# app.include_router(predictions.router)
+app.include_router(predictions.router)
 
 @app.get("/")
 async def root():

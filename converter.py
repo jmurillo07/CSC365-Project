@@ -1,10 +1,9 @@
 """"
 Convert data from the CSV files to the database.
 Usage:
-    1. In database.py comment out the Tables, leave the metadata object there.
-    2. Run alembic downgrade base
-    3. Run alembic upgrade base
-    4. Uncomment out the Tables in database.py then run this file.
+    1. Run alembic downgrade base
+    2. Run alembic upgrade base
+    3. Run this file.
 Only run this file once. If there is an error try to drop your tables (go through process again)
 after fixing the error.
 """
@@ -26,6 +25,7 @@ with open("ufc_fighters.csv", mode="r", encoding="utf-8") as csv_file:
     reader = csv.DictReader(csv_file, skipinitialspace=True)
 
     with db.engine.connect() as connection:
+        fighters = []
         for row in reader:
             f_name = try_parse(str, row['First Name'])
             l_name = try_parse(str, row['Last Name'])
@@ -49,11 +49,16 @@ with open("ufc_fighters.csv", mode="r", encoding="utf-8") as csv_file:
                     s = 3
                 case _:
                     s = None
-            
-            connection.execute(
-                sa.insert(db.fighters).
-                values(first_name = f_name, last_name = l_name, height = h, reach = r, stance_id = s)
-            )
+            fighters.append({"first_name": f_name,
+                             "last_name": l_name,
+                             "height": h,
+                             "reach": r,
+                             "stance_id": s})
+
+        connection.execute(
+            db.fighters.insert(),
+            fighters
+        )
         connection.commit()
 
 # Creates events
@@ -67,6 +72,7 @@ with open("ufc_event_data.csv", mode="r", encoding="utf-8") as csv_file:
             values(venue_id = venue)
         )
     with db.engine.connect() as connection:
+        events = []
         for row in reader:
             name = try_parse(str, row['Event Name'])
             if old_name != name:
@@ -76,16 +82,22 @@ with open("ufc_event_data.csv", mode="r", encoding="utf-8") as csv_file:
             date = datetime.date(datetime.strptime(try_parse(str, row['Event Date']), '%B %d, %Y'))
             attendance = None  # Also don't know atm
 
-            connection.execute(
-                sa.insert(db.events).
-                values(event_name = name, event_date = date, venue_id = venue, attendance = attendance)
-            )
+            events.append({"event_name": name,
+                           "event_date": date,
+                           "venue_id": venue,
+                           "attendance": attendance})
+
+        connection.execute(
+            db.events.insert(),
+            events
+        )
         connection.commit()
 
 # Creates fighter_stats and fights
 with open("ufc_event_data.csv", mode="r", encoding="utf-8") as csv_file:
     reader = csv.DictReader(csv_file, skipinitialspace=True)
     with db.engine.connect() as connection:
+        fights = []
         for row in reader:
             name = try_parse(str, row['Event Name'])
             fighter1 = try_parse(str, row['Fighter1'])
@@ -234,11 +246,15 @@ with open("ufc_event_data.csv", mode="r", encoding="utf-8") as csv_file:
                         fighter_id = f2)
             )
             stats2 = stats2.inserted_primary_key[0]
-            fight = connection.execute(
-                sa.insert(db.fights)
-                .values(event_id = e_id, result = result, fighter1_id = f1,
-                         fighter2_id = f2, weight_class = weight_class, method_of_vic = method, 
-                         round_num = round, round_time = time, stats1_id = stats1, stats2_id = stats2)
-            )
-        
+            fights.append({"event_id": e_id,
+                           "result": result,
+                           "fighter1_id": f1,
+                           "fighter2_id": f2,
+                           "weight_class": weight_class,
+                           "method_of_vic": method,
+                           "round_num": round,
+                           "round_time": time,
+                           "stats1_id": stats1,
+                           "stats2_id": stats2})
+        fights_insert = connection.execute(db.fights.insert(), fights)
         connection.commit()

@@ -12,7 +12,7 @@ client = TestClient(app)
 def test_user_01():
     # Create, get name, authenticate, delete
     response = client.post(
-        "/users/create",
+        "/users/",
         headers={"Content-Type": "application/json"},
         json={
             "username": "test_user",
@@ -28,7 +28,7 @@ def test_user_01():
     assert actual_username == "test_user"
 
     response = client.post(
-        "/users/create",
+        "/users/",
         headers={"Content-Type": "application/json"},
         json={
             "username": "test_user",
@@ -45,9 +45,7 @@ def test_user_01():
             "password": "test_passwordasd"
         }
     )
-    assert response.status_code == 200
-    actual_status = response.json()["status"]
-    assert actual_status == "failed"
+    assert response.status_code == 401
 
     response = client.post(
         "/users/login",
@@ -58,8 +56,8 @@ def test_user_01():
         }
     )
     assert response.status_code == 200
-    actual_status = response.json()["status"]
-    assert actual_status == "success"
+    actual_status = response.json()["user_id"]
+    assert actual_status == user_id
 
     with db.engine.begin() as conn:
         conn.execute(
