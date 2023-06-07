@@ -137,7 +137,7 @@ def add_user(user: UserJson):
         result = conn.execute(encryption, [{'username': user.username, 'password': user.password}])
         conn.commit()
     
-    return {"user_id": result.first()[0]}
+    return {'user_id': result.inserted_primary_key[0]}
 
 
 @router.post("/users/delete", tags=["users"])
