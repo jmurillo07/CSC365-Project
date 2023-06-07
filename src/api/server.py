@@ -21,26 +21,35 @@ You can:
 ## Fights   
 
 You can:
-
-* **add a new fight to the database**
 * **retrieve a specific fight by id**
-* **add a community prediction to a fight**
-* **retrieve a specific prediction by fight id**
+* **add a new fight to the database**
+* **retrieve all fights under an event name**
+
 
 ## Events
 
 You can:
 * **retrieve a specific event by id**
+* **retrieve all fights under an event name**
 * **add a new event by id**
+
+
+## Predictions
+
+You can:
+* **retrieve a specific prediction by fight id**
+* **add your prediction to a fight**
+
 
 ## Users:
 
 You can:
-
-* **add a new user to the database**
 * **retrieve a user's name by id**
 * **list all username's matching a string**
 * **authenticate a given username and password**
+* **add a new user to the database**
+* **delete an account**
+* **update a username or password**
 """
 tags_metadata = [
     {
@@ -68,7 +77,7 @@ tags_metadata = [
 app = FastAPI(
     title="UFC",
     description=description,
-    version="0.0.2",
+    version="0.0.3",
     openapi_tags=tags_metadata,
 )
 app.include_router(fights.router)

@@ -23,12 +23,14 @@ def get_event(event_id: int):
     * `attendance`: The number of people recorded to have attended the event.
     """
     stmt = (
-        sqlalchemy.text("""
+        sqlalchemy.text(
+        """
         SELECT event_name, event_date, venue_name, attendance
         FROM events
             INNER JOIN venue ON events.venue_id = venue.venue_id
         WHERE event_id = (:id)
-        """)
+        """
+        )
     )
 
     with db.engine.connect() as conn:
@@ -62,7 +64,7 @@ def get_fights_by_event(event_name: str):
     * `result`: The result of the fight.
     * `event_name`: The event the fight is from.
     * `event_id`: The internal id of the event.
-    * `event_date`: The date the fight took place.
+    * `event_date`: The date the fight took place (YYYY-MM-DD).
     * `venue`: The name of the place where the event was held.
 
     The endpoint returns the fights by descending `event_date` and by ascending the internal
