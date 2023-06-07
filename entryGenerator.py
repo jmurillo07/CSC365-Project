@@ -5,6 +5,8 @@ from src import database as db
 
 fake = Faker()
 num_entries = 1000000000
+
+# make sure connection is made to local DB, change from database.py
 engine = sqlalchemy.create_engine(db.database_connection_url())
 
 with engine.begin() as conn:
