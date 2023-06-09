@@ -8,7 +8,7 @@ from src.api import predictions
 
 
 description = """
-UFC API returns fighter and fight statistics from numbered events.
+Ultimate Fighting API returns fighter and fight statistics from numbered events.
 
 ## Fighters
 
@@ -41,7 +41,7 @@ You can:
 * **add your prediction to a fight**
 
 
-## Users:
+## Users
 
 You can:
 * **retrieve a user's name by id**
@@ -88,4 +88,4 @@ app.include_router(predictions.router)
 
 @app.get("/")
 async def root():
-    return {"message": "Welcome to the UFC API. See /docs for more information."}
+    return {"message": "Welcome to the Ultimate Fighting API. See /docs for more information."}
