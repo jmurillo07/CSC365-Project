@@ -41,13 +41,15 @@ def get_user(id: int):
 
 
 @router.get("/users", tags=["users"])
-def get_users(name: str = ""):
+def get_users(name: str = "", limit: int = 50, offset: int = 0):
     """
     This endpoint takes in a username and returns every user_id and username where
     the username matches the name.
     """
     find = (sqlalchemy.select(db.users.c.user_id, db.users.c.username)).\
-        where(db.users.c.username.ilike(f"%{name}%"))
+        where(db.users.c.username.ilike(f"%{name}%")).\
+        limit(limit).\
+        offset(offset)
     
     with db.engine.connect() as conn:
         result = conn.execute(find).fetchall()
@@ -137,7 +139,7 @@ def add_user(user: UserJson):
         result = conn.execute(encryption, [{'username': user.username, 'password': user.password}])
         conn.commit()
     
-    return {'user_id': result.inserted_primary_key[0]}
+    return {'user_id': result.scalar()}
 
 
 @router.post("/users/delete", tags=["users"])

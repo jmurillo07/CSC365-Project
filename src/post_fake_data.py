@@ -299,7 +299,7 @@ with engine.begin() as conn:
             "fighter_id": fighter2
         })
         
-        temp = random.randint(0, 1)
+        temp = random.random()
         if temp < 0.1:
             result = None
         elif temp < 0.55:

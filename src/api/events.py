@@ -60,7 +60,7 @@ def get_event(event_id: int):
 
 
 @router.get("/events/", tags=["events", "fights"])
-def get_fights_by_event(event_name: str):
+def get_fights_by_event(event_name: str = "", limit: int = 50, offset: int = 0):
     """
     This endpoint returns all the fights whose corresponding event name is similar to
     the given string.
@@ -99,9 +99,13 @@ def get_fights_by_event(event_name: str):
             LEFT JOIN victory_methods ON fights.method_of_vic = victory_methods.id
         WHERE event_name ILIKE :name
         ORDER BY DATE(event_date) DESC, fight_id
+        LIMIT (:limit)
+        OFFSET (:offset)
         """
     ).bindparams(
-        sqlalchemy.bindparam('name', '%' + event_name + '%')
+        sqlalchemy.bindparam('name', '%' + event_name + '%'),
+        sqlalchemy.bindparam('limit', limit),
+        sqlalchemy.bindparam('offset', offset)
     )
 
     with db.engine.connect() as conn:

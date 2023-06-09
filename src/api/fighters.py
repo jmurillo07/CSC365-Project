@@ -258,7 +258,7 @@ def list_fighters(
                 AND height BETWEEN (:height_min) AND (:height_max)
                 AND reach BETWEEN (:reach_min) AND (:reach_max)
         )
-        SELECT DISTINCT *
+        SELECT DISTINCT fighter_id, name, height, reach, stance, wins, draws, losses
         FROM windowed
         WHERE wins BETWEEN (:wins_min) AND (:wins_max)
             AND draws BETWEEN (:draws_min) AND (:draws_max)

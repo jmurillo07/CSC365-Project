@@ -116,8 +116,6 @@ def add_prediction(user: UserJson, prediction: PredictionJson):
     day before the `event_date` of the event the `fight_id` is associated with.
     """
     result = authenticate_user(user)
-    if result['status'] == 'failed':
-        raise HTTPException(status_code=401, detail='invalid password, try again.')
 
     fight_info = sqlalchemy.text(
         """
