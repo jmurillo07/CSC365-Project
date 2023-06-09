@@ -8,6 +8,14 @@ from pydantic import BaseModel, Field
 
 from src import database as db
 
+
+class EventJson(BaseModel):
+    event_name: str = Field(default="", alias='event_name')
+    event_date: str = Field(default="", alias='event_date')
+    venue_id: int
+    attendance: int = Field(default=None, alias='attendance')
+
+
 router = APIRouter()
 
 
@@ -126,13 +134,6 @@ def get_fights_by_event(event_name: str):
             )
 
     return json
-
-
-class EventJson(BaseModel):
-    event_name: str = Field(default="", alias='event_name')
-    event_date: str = Field(default="", alias='event_date')
-    venue_id: int
-    attendance: int = Field(default=None, alias='attendance')
 
 
 def is_valid_date_format(date_string):
