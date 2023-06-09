@@ -75,7 +75,7 @@ tags_metadata = [
 ]
 
 app = FastAPI(
-    title="UFC",
+    title="Ultimate Fighting API",
     description=description,
     version="0.0.3",
     openapi_tags=tags_metadata,
