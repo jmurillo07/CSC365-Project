@@ -100,7 +100,7 @@ def upgrade() -> None:
     op.create_table(
         'venue',
         sa.Column('venue_id', sa.Integer, sa.Identity(), primary_key=True, nullable=False),
-        sa.Column('venue_name', sa.Text)
+        sa.Column('venue_name', sa.Text, unique=True)
     )
 
     op.create_table(

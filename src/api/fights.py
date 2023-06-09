@@ -6,6 +6,16 @@ from sqlalchemy import and_, or_
 from pydantic import BaseModel, Field
 from datetime import datetime, timedelta
 
+"""
+TODO:
+3. Update a fight. Takes in a fight_id and related data that came in after the fight had finished. Checks
+if fight_id is a valid column and then gives values to columns result, method_of_vic, round_num, 
+round_time, and creates 2 new fighter_stats rows with subsequent data filled in there and returns 
+those two stats_id into stats1_id and stats2_id respectively.
+Additionally, can be used in the future to overturn a fight by changing result & method_of_vic into nulls.
+Should be able to mess up some stuff with the fighters such as their win rate.
+"""
+
 
 class FightJson(BaseModel):
     event_id: int = Field(default=0, alias='event_id')
